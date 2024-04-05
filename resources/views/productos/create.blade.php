@@ -1,10 +1,10 @@
 
-
+@extends("inicio.inicio")
 @section("formulario")
 <div class="container">
     <h1>Crear Producto</h1>
 
-    <form action="{{ route('productos.store') }}" method="POST" enctype="multipart/form-data">
+    <form action="{{ route('Productos.store') }}" method="POST" enctype="multipart/form-data">
         @csrf
 
         <div class="form-group">
@@ -19,7 +19,7 @@
 
         <div class="form-group">
             <label for="precio">Precio:</label>
-            <input type="number" name="precio" class="form-control" step="0.01" required>
+            <input type="number" name="precio" class="form-control" required>
         </div>
 
         <div class="form-group">

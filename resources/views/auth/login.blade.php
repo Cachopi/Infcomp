@@ -4,7 +4,7 @@
 @endsection
 @section("login")
     <div class="flex items-center justify-center h-full p-5 rounded-2xl">
-        <div class="w-full max-w-md h-full">
+        <div class="w-full max-w-md h-full ">
             <!-- Session Status -->
             <x-auth-session-status class="mb-4" :status="session('status')"/>
 
@@ -44,15 +44,17 @@
                     </label>
                 </div>
 
+
                 <div class="flex items-center justify-between">
                     @if (Route::has('password.request'))
                         <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                            href="{{ route('password.request') }}">
                             {{ __('Forgot your password?') }}
                         </a>
+
                     @endif
 
-                    <x-primary-button>
+                    <x-primary-button class="m-5">
                         {{ __('Log in') }}
                     </x-primary-button>
                 </div>

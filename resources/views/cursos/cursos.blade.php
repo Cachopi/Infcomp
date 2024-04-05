@@ -9,9 +9,53 @@
     <title>Cursos</title>
 </head>
 
-<body>
+<body class=" ">
 <x-header></x-header>
-<h1 class="h-24">Cursos</h1>
+
+{{--mostrar cursos--}}
+<main class="p-5 min-h-screen">
+    <div class="mt-4 flex flex-row-reverse ">
+        <a href="{{ route('Cursos.create') }}" class="btn btn-success">Agregar Curso</a>
+    </div>
+
+    <section class=" flex flex-row p-2 flex-wrap ">
+
+
+        @foreach($cursos as $curso)
+            <div class="card w-96 glass  m-3">
+                <figure class="p-2"><img src="{{asset('storage/'.$curso->ruta)}}" alt="{{$curso->nombre}}"/></figure>
+                <div class="card-body">
+                    <h2 class="card-title">{{$curso->nombre}}</h2>
+                    <p>{{$curso->descripcion}}</p>
+                    <h3 class="flex flex-row-reverse mb-2 text-red-700 font-bold">{{$curso->precio}} €</h3>
+
+                    <div class="card-actions justify-end">
+
+                        <form action="{{ route('cesta.anadir', $curso->id) }}" method="POST">
+                            @csrf
+                            <button class="btn btn-primary" type="submit">Añadir </button>
+                        </form>
+                        <form action="{{route('Cursos.destroy',($curso->id))}}" method="post">
+                            @csrf
+                            @method('DELETE')
+                            <button type="submit" class="btn btn-primary">Eliminar</button>
+
+                        </form>
+                        <a href="{{ route('Cursos.edit', $curso->id) }}" class="btn btn-primary">Editar</a>
+
+                    </div>
+
+
+                </div>
+            </div>
+
+        @endforeach
+
+
+    </section>
+</main>
+
+
 <x-footer></x-footer>
 </body>
 </html>

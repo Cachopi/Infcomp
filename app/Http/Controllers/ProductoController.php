@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Http\Requests\StoreProductoRequest;
 use App\Http\Requests\UpdateProductoRequest;
 use App\Models\Producto;
+use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Storage;
 
 class ProductoController extends Controller
@@ -17,7 +18,8 @@ class ProductoController extends Controller
         //
 
         $productos = Producto::all();
-        return view("productos.productos",["productos"=>$productos]);
+
+        return view("productos.productos", ["productos" => $productos]);
     }
 
     /**
@@ -39,8 +41,15 @@ class ProductoController extends Controller
             'imagen' => 'required|image|max:2048', // máximo 2MB
         ]);
 
+
+
         $imagen = $request->file('imagen');
-        $ruta = $imagen->store('fotos', 'public'); // almacenar en storage/app/public/fotos
+        $ruta = $imagen->store('public/images');
+        $ruta=str_replace('public/', '', $ruta);
+
+
+
+
 
         $producto = Producto::create([
             'nombre' => $request->nombre,
@@ -48,8 +57,9 @@ class ProductoController extends Controller
             'precio' => $request->precio,
             'ruta' => $ruta
         ]);
-
-        return response()->json(['message' => 'Producto creado ', 'producto' => $producto], 201);
+        $producto->save();
+        $productos = Producto::all();
+        return view("productos.productos", ["productos" => $productos]);
     }
 
     /**
@@ -67,7 +77,7 @@ class ProductoController extends Controller
             $precio = $producto->precio;
             $url = Storage::url($producto->ruta);
 
-            return response()->json(['nombre'=> $nombre, 'descripcion'=>$descripcion, 'precio'=>$precio, 'producto_url' => $url]);
+            return response()->json(['nombre' => $nombre, 'descripcion' => $descripcion, 'precio' => $precio, 'producto_url' => $url]);
         }
 
     }
@@ -75,27 +85,69 @@ class ProductoController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(Producto $producto)
+    public function edit($id)
     {
         //
+        $producto = Producto::find($id);
+        return view("productos.update", compact('producto'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(UpdateProductoRequest $request, Producto $producto)
+    public function update(UpdateProductoRequest $request, $id)
     {
         //
+
+        // Validar los datos de entrada
+        $request->validate([
+            'nombre' => 'required|string|max:255',
+            'descripcion' => 'nullable|string',
+            'precio' => 'required|numeric|min:0',
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validación para la imagen
+        ]);
+
+        // Buscar el producto por ID
+        $producto = Producto::find($id);
+
+        // Verificar si el producto existe
+        if (!$producto) {
+            return redirect()->route('productos.index')->with('error', 'Producto no encontrado');
+        }
+
+        // Actualizar los campos del producto con los datos del formulario
+        $producto->nombre = $request->input('nombre');
+        $producto->descripcion = $request->input('descripcion');
+        $producto->precio = $request->input('precio');
+
+        // Procesar la carga de la imagen
+        if ($request->hasFile('imagen')) {
+            // Eliminar la imagen anterior si existe
+            if ($producto->imagen) {
+                Storage::delete($producto->imagen);
+            }
+
+            // Almacenar la nueva imagen
+            $imagen = $request->file('imagen');
+            $ruta = $imagen->store('productos', 'public');
+            $producto->ruta = $ruta;
+        }
+
+        // Guardar los cambios en la base de datos
+        $producto->save();
+
+        // Redirigir a la lista de productos con un mensaje de éxito
+        return redirect()->route('Productos.index')->with('success', 'Producto actualizado exitosamente');
     }
 
     /**
      * Remove the specified resource from storage.
      */
-    public function destroy(Producto $producto)
+    public function destroy( $id)
     {
         //
-
-        $this->destroy($producto);
-        return response()->json(['mensaje'=>'producto eliminado']);
+        $producto=Producto::find($id);
+       $producto->delete();
+        return redirect()->route('Productos.index');
     }
 }

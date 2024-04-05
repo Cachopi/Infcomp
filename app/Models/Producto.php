@@ -10,4 +10,9 @@ class Producto extends Model
     use HasFactory;
 
     protected $fillable=["nombre","descripcion","precio","ruta"];
+
+    public function cesta()
+    {
+        return $this->belongsToMany(Cesta::class)->withPivot('cantidad');
+    }
 }
