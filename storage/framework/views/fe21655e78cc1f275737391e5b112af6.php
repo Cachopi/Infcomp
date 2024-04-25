@@ -38,7 +38,6 @@
 
     <section class=" flex flex-row p-2 flex-wrap ">
 
-
         <?php $__currentLoopData = $cursos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $curso): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <div class="card w-96 glass  m-3">
                 <figure class="p-2"><img src="<?php echo e(asset('storage/'.$curso->ruta)); ?>" alt="<?php echo e($curso->nombre); ?>"/></figure>
@@ -49,7 +48,7 @@
 
                     <div class="card-actions justify-end">
 
-                        <form action="<?php echo e(route('cesta.anadir', $curso->id)); ?>" method="POST">
+                        <form action="<?php echo e(route('cesta.anadir', [$curso->id, 'tipo' => 'curso'])); ?>" method="POST">
                             <?php echo csrf_field(); ?>
                             <button class="btn btn-primary" type="submit">Añadir </button>
                         </form>

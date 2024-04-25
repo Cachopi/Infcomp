@@ -26,7 +26,7 @@
 
                 <!-- Password -->
                 <div class="mb-4">
-                    <x-input-label for="password" :value="__('Password')"/>
+                    <x-input-label for="password" :value="__('Contraseña')"/>
                     <x-text-input id="password" class="block mt-1 w-full"
                                   type="password"
                                   name="password"
@@ -40,7 +40,7 @@
                         <input id="remember_me" type="checkbox"
                                class="rounded dark:bg-gray-900 border-gray-300 dark:border-gray-700 text-indigo-600 shadow-sm focus:ring-indigo-500 dark:focus:ring-indigo-600 dark:focus:ring-offset-gray-800"
                                name="remember">
-                        <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Remember me') }}</span>
+                        <span class="ms-2 text-sm text-gray-600 dark:text-gray-400">{{ __('Recuerdame') }}</span>
                     </label>
                 </div>
 
@@ -49,13 +49,13 @@
                     @if (Route::has('password.request'))
                         <a class="underline text-sm text-gray-600 dark:text-gray-400 hover:text-gray-900 dark:hover:text-gray-100 rounded-md focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500 dark:focus:ring-offset-gray-800"
                            href="{{ route('password.request') }}">
-                            {{ __('Forgot your password?') }}
+                            {{ __('¿Olvidaste la Contraseña?') }}
                         </a>
 
                     @endif
 
                     <x-primary-button class="m-5">
-                        {{ __('Log in') }}
+                        {{ __('Entrar') }}
                     </x-primary-button>
                 </div>
             </form>

@@ -29,7 +29,7 @@
 
                     <div class="card-actions justify-end">
 
-                        <form action="{{ route('cesta.anadir', $producto->id) }}" method="POST">
+                        <form action="{{ route('cesta.anadir', [$producto->id,'tipo'=>'producto']) }}" method="POST">
                             @csrf
                             <button class="btn btn-primary" type="submit">Añadir </button>
                         </form>

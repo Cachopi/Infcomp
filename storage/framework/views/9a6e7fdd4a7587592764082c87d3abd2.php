@@ -47,7 +47,7 @@
 
                     <div class="card-actions justify-end">
 
-                        <form action="<?php echo e(route('cesta.anadir', $producto->id)); ?>" method="POST">
+                        <form action="<?php echo e(route('cesta.anadir', [$producto->id,'tipo'=>'producto'])); ?>" method="POST">
                             <?php echo csrf_field(); ?>
                             <button class="btn btn-primary" type="submit">Añadir </button>
                         </form>

@@ -20,7 +20,6 @@
 
     <section class=" flex flex-row p-2 flex-wrap ">
 
-
         @foreach($cursos as $curso)
             <div class="card w-96 glass  m-3">
                 <figure class="p-2"><img src="{{asset('storage/'.$curso->ruta)}}" alt="{{$curso->nombre}}"/></figure>
@@ -31,7 +30,7 @@
 
                     <div class="card-actions justify-end">
 
-                        <form action="{{ route('cesta.anadir', $curso->id) }}" method="POST">
+                        <form action="{{ route('cesta.anadir', [$curso->id, 'tipo' => 'curso']) }}" method="POST">
                             @csrf
                             <button class="btn btn-primary" type="submit">Añadir </button>
                         </form>

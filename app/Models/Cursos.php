@@ -9,4 +9,13 @@ class Cursos extends Model
 {
     use HasFactory;
     protected $fillable=["nombre","descripcion","precio","ruta","horas"];
+
+    public function cesta()
+    {
+        return $this->belongsToMany(Cesta::class, 'cesta_cursos')
+            ->withPivot('cantidad');
+
+
+    }
 }
+

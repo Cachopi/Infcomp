@@ -18,40 +18,54 @@
                         <tbody class="m-6">
 
                         @foreach($productosConCantidad as $producto)
-
-
-                        <tr class="m-6 p-10">
-                            <td class="py-4">
-                                <div class="flex items-center">
-
-                                    <img class="h-16 w-16 mr-4" src="storage/{{$producto['producto']->ruta}}" alt="Product image">
-                                    <span class="font-semibold">{{$producto['producto']->nombre}}</span>
-                                </div>
-                            </td>
-                            <td class="py-4">{{$producto['producto']->precio}}</td>
-                            <td class="py-4">
-                                <div class="flex items-center">
-
-                                    <td class="py-4">
-                                        <div class="flex items-center">
-                                            <form action="{{ route('cesta.restar', $producto['producto']->id) }}" method="POST">
-                                                @csrf
-                                                <button type="submit" class="border rounded-md py-2 px-4 mr-2">-</button>
-                                            </form>
-                                            <span class="text-center w-8">{{ $producto['cantidad'] }}</span>
-                                            <form action="{{ route('cesta.sumar', $producto['producto']->id) }}" method="POST">
-                                                @csrf
-                                                <button type="submit" class="border rounded-md py-2 px-4 ml-2">+</button>
-                                            </form>
-                                        </div>
-                                    </td>
-
-
-                                </div>
-                            </td>
-                            <td class="py-4">{{$producto['subtotal'] }}€ </td>
-                        </tr>
-
+                            <tr class="m-6 p-10">
+                                <td class="py-4">
+                                    <div class="flex items-center">
+                                        <img class="h-16 w-16 mr-4" src="storage/{{$producto['producto']->ruta}}" alt="Product image">
+                                        <span class="font-semibold">{{$producto['producto']->nombre}}</span>
+                                    </div>
+                                </td>
+                                <td class="py-4">{{$producto['producto']->precio}}</td>
+                                <td class="py-4">
+                                    <div class="flex items-center">
+                                        <form action="{{ route('cesta.restar', $producto['producto']->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="border rounded-md py-2 px-4 mr-2">-</button>
+                                        </form>
+                                        <span class="text-center w-8">{{ $producto['cantidad'] }}</span>
+                                        <form action="{{ route('cesta.sumar', $producto['producto']->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="border rounded-md py-2 px-4 ml-2">+</button>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td class="py-4">{{$producto['subtotal'] }}€ </td>
+                            </tr>
+                        @endforeach
+                        @foreach($cursosConCantidad as $curso)
+                            <tr class="m-6 p-10">
+                                <td class="py-4">
+                                    <div class="flex items-center">
+                                        <img class="h-16 w-16 mr-4" src="storage/{{$curso['curso']->ruta}}" alt="Curso image">
+                                        <span class="font-semibold">{{$curso['curso']->nombre}}</span>
+                                    </div>
+                                </td>
+                                <td class="py-4">{{$curso['curso']->precio}}</td>
+                                <td class="py-4">
+                                    <div class="flex items-center">
+                                        <form action="{{ route('cesta.restarCurso', $curso['curso']->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="border rounded-md py-2 px-4 mr-2">-</button>
+                                        </form>
+                                        <span class="text-center w-8">{{ $curso['cantidad'] }}</span>
+                                        <form action="{{ route('cesta.sumarCurso', $curso['curso']->id) }}" method="POST">
+                                            @csrf
+                                            <button type="submit" class="border rounded-md py-2 px-4 ml-2">+</button>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td class="py-4">{{$curso['subtotal'] }}€ </td>
+                            </tr>
                         @endforeach
                         <!-- More product rows -->
                         </tbody>

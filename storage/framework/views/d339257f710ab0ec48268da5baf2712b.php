@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 
-    <?php echo app('Illuminate\Foundation\Vite')('resources/css/app.css'); ?>
+    <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css','resources/js/app.js']); ?>
     <title>Infcomp</title>
 
 </head>
@@ -40,6 +40,7 @@
     <?php echo $__env->yieldContent("update"); ?>
     <?php echo $__env->yieldContent("updateCursos"); ?>
     <?php echo $__env->yieldContent("cesta_pagina"); ?>
+    <?php echo $__env->yieldContent("perfil"); ?>
 
 
 </main>

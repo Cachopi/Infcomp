@@ -11,6 +11,11 @@ use Laravel\Sanctum\HasApiTokens;
 class User extends Authenticatable
 {
 
+    public function getFoto()
+    {
+        return asset('storage/' . $this->foto_perfil);
+    }
+
     public function cesta()
     {
         return $this->hasOne(Cesta::class);
@@ -26,6 +31,7 @@ class User extends Authenticatable
         'name',
         'email',
         'password',
+        'foto_perfil'
     ];
 
     /**

@@ -17,40 +17,54 @@
                         <tbody class="m-6">
 
                         <?php $__currentLoopData = $productosConCantidad; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $producto): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
-
-
-                        <tr class="m-6 p-10">
-                            <td class="py-4">
-                                <div class="flex items-center">
-
-                                    <img class="h-16 w-16 mr-4" src="storage/<?php echo e($producto['producto']->ruta); ?>" alt="Product image">
-                                    <span class="font-semibold"><?php echo e($producto['producto']->nombre); ?></span>
-                                </div>
-                            </td>
-                            <td class="py-4"><?php echo e($producto['producto']->precio); ?></td>
-                            <td class="py-4">
-                                <div class="flex items-center">
-
-                                    <td class="py-4">
-                                        <div class="flex items-center">
-                                            <form action="<?php echo e(route('cesta.restar', $producto['producto']->id)); ?>" method="POST">
-                                                <?php echo csrf_field(); ?>
-                                                <button type="submit" class="border rounded-md py-2 px-4 mr-2">-</button>
-                                            </form>
-                                            <span class="text-center w-8"><?php echo e($producto['cantidad']); ?></span>
-                                            <form action="<?php echo e(route('cesta.sumar', $producto['producto']->id)); ?>" method="POST">
-                                                <?php echo csrf_field(); ?>
-                                                <button type="submit" class="border rounded-md py-2 px-4 ml-2">+</button>
-                                            </form>
-                                        </div>
-                                    </td>
-
-
-                                </div>
-                            </td>
-                            <td class="py-4"><?php echo e($producto['subtotal']); ?>€ </td>
-                        </tr>
-
+                            <tr class="m-6 p-10">
+                                <td class="py-4">
+                                    <div class="flex items-center">
+                                        <img class="h-16 w-16 mr-4" src="storage/<?php echo e($producto['producto']->ruta); ?>" alt="Product image">
+                                        <span class="font-semibold"><?php echo e($producto['producto']->nombre); ?></span>
+                                    </div>
+                                </td>
+                                <td class="py-4"><?php echo e($producto['producto']->precio); ?></td>
+                                <td class="py-4">
+                                    <div class="flex items-center">
+                                        <form action="<?php echo e(route('cesta.restar', $producto['producto']->id)); ?>" method="POST">
+                                            <?php echo csrf_field(); ?>
+                                            <button type="submit" class="border rounded-md py-2 px-4 mr-2">-</button>
+                                        </form>
+                                        <span class="text-center w-8"><?php echo e($producto['cantidad']); ?></span>
+                                        <form action="<?php echo e(route('cesta.sumar', $producto['producto']->id)); ?>" method="POST">
+                                            <?php echo csrf_field(); ?>
+                                            <button type="submit" class="border rounded-md py-2 px-4 ml-2">+</button>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td class="py-4"><?php echo e($producto['subtotal']); ?>€ </td>
+                            </tr>
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php $__currentLoopData = $cursosConCantidad; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $curso): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                            <tr class="m-6 p-10">
+                                <td class="py-4">
+                                    <div class="flex items-center">
+                                        <img class="h-16 w-16 mr-4" src="storage/<?php echo e($curso['curso']->ruta); ?>" alt="Curso image">
+                                        <span class="font-semibold"><?php echo e($curso['curso']->nombre); ?></span>
+                                    </div>
+                                </td>
+                                <td class="py-4"><?php echo e($curso['curso']->precio); ?></td>
+                                <td class="py-4">
+                                    <div class="flex items-center">
+                                        <form action="<?php echo e(route('cesta.restarCurso', $curso['curso']->id)); ?>" method="POST">
+                                            <?php echo csrf_field(); ?>
+                                            <button type="submit" class="border rounded-md py-2 px-4 mr-2">-</button>
+                                        </form>
+                                        <span class="text-center w-8"><?php echo e($curso['cantidad']); ?></span>
+                                        <form action="<?php echo e(route('cesta.sumarCurso', $curso['curso']->id)); ?>" method="POST">
+                                            <?php echo csrf_field(); ?>
+                                            <button type="submit" class="border rounded-md py-2 px-4 ml-2">+</button>
+                                        </form>
+                                    </div>
+                                </td>
+                                <td class="py-4"><?php echo e($curso['subtotal']); ?>€ </td>
+                            </tr>
                         <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <!-- More product rows -->
                         </tbody>

@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 
-    @vite('resources/css/app.css')
+    @vite(['resources/css/app.css','resources/js/app.js'])
     <title>Infcomp</title>
 
 </head>
@@ -22,6 +22,7 @@
     @yield("update")
     @yield("updateCursos")
     @yield("cesta_pagina")
+    @yield("perfil")
 
 
 </main>

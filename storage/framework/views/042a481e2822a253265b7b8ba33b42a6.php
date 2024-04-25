@@ -5,6 +5,12 @@
     foreach ($productos as $producto) {
         $cantidad+=$producto['cantidad'];
     }
+    $cursos = \Illuminate\Support\Facades\Session::get('cursoSesion',[]);
+
+    foreach ($cursos as $curso) {
+        $cantidad+=$curso['cantidad'];
+    }
+
     ?>
 
     <div class="navbar bg-base-100">
@@ -36,11 +42,11 @@
 
                     <div class="max-w-96 mx-auto mt-16 bg-white rounded-lg overflow-hidden md:max-w-lg border border-gray-400 mt-3 z-[1] card card-compact dropdown-content w-80 bg-base-100 shadow">
                         <div class="px-4 py-2 border-b border-gray-200">
-                            <h2 class="font-semibold text-gray-800">Cesta</h2>
+                            <h1 class="text-2xl font-semibold mb-5">Tu Cesta</h1>
 
 
-                            <div class="container mx-auto mt-10">
-                                <h1 class="text-2xl font-semibold mb-5">Tu Cesta</h1>
+                            <div class="container mx-auto mt-10 w-auto overflow-y-scroll h-[700px] ">
+
 
 
 
@@ -54,6 +60,27 @@
 
                                         </div>
                                         <form action="<?php echo e(route('cesta.eliminar', $producto['id'])); ?>" method="POST">
+                                            <?php echo method_field('DELETE'); ?>
+                                            <?php echo csrf_field(); ?>
+
+                                            <button type="submit" class="ml-auto py-2 px-4 bg-red-700 hover:bg-red-500 text-white rounded-lg">
+                                                X
+                                            </button>
+                                        </form>
+                                    </div>
+
+                                <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                                <?php $__currentLoopData = $cursos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $curso): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+                                    <div class="flex items-center py-5 px-8 border-b border-gray-200">
+                                        <img class="w-16 h-16 object-cover rounded" src="<?php echo e(asset('storage/'.$curso['ruta'])); ?>" alt="Product Image">
+                                        <div class="ml-3">
+                                            <h3 class="text-gray-900 font-semibold"><?php echo e($curso['nombre']); ?></h3>
+                                            <p class="text-gray-700 mt-1"><?php echo e($curso['precio']); ?>€</p>
+                                            <p class="text-gray-700 mt-1">cantidad <?php echo e($curso['cantidad']); ?></p>
+
+                                        </div>
+
+                                        <form action="<?php echo e(route('cesta.eliminarCurso', $curso['id'])); ?>" method="POST">
                                             <?php echo csrf_field(); ?>
                                             <?php echo method_field('DELETE'); ?>
                                             <button type="submit" class="ml-auto py-2 px-4 bg-red-700 hover:bg-red-500 text-white rounded-lg">
@@ -63,12 +90,13 @@
                                     </div>
                                 <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
 
-                                <div class="mt-5">
-                                    <a href="<?php echo e(route('cesta.vaciar')); ?>" class="text-red-500 hover:text-red-700">Vaciar Cesta</a>
-                                </div>
+
+
                             </div>
 
-
+                            <div class="mt-5">
+                                <a href="<?php echo e(route('cesta.vaciar')); ?>" class="text-red-500 hover:text-red-700">Vaciar Cesta</a>
+                            </div>
 
 
                         </div>
@@ -95,14 +123,13 @@
         <div class="dropdown dropdown-end">
             <div tabindex="0" role="button" class="btn btn-ghost btn-circle avatar">
                 <div class="w-10 rounded-full">
-                    <img alt="Tailwind CSS Navbar component"
-                         src="https://daisyui.com/images/stock/photo-1534528741775-53994a69daeb.jpg"/>
+                    <img src="<?php echo e(auth()->user()-> getFoto()); ?>" alt="Foto de Perfil" />
                 </div>
             </div>
             <ul tabindex="0" class="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-base-100 rounded-box w-52">
                 <li>
-                    <a class="justify-between">
-                        Perfil
+                    <a class="justify-between"   href=" <?php echo e(route('profile.edit')); ?>">
+                     Perfil
                     </a>
                 </li>
 
@@ -116,8 +143,8 @@
         </div>
         <?php else: ?>
             <div>
-                <a href="<?php echo e(route('login')); ?>" class="btn btn-primary">Login</a>
-                <a href="<?php echo e(route('register')); ?>" class="btn btn-primary">Registro</a>
+                <a href="<?php echo e(route('login')); ?>" class="btn btn-primary">Entrar</a>
+                <a href="<?php echo e(route('register')); ?>" class="btn btn-primary">Registrarse</a>
                 </div>
             <?php endif; ?>
         </div>
