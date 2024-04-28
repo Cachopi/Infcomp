@@ -12,14 +12,17 @@
 <body >
 <x-header></x-header>
 <main class="p-5">
+    @role('Admin')
     <div class="mt-4 flex flex-row-reverse ">
         <a href="{{ route('Productos.create') }}" class="btn btn-success">Agregar Producto</a>
     </div>
+    @endrole
 
     <section class=" flex flex-row p-2 flex-wrap">
 
 
         @foreach($productos as $producto)
+
             <div class="card w-96 glass  m-3">
                 <figure><img src="{{asset('storage/'.$producto->ruta)}}" alt="{{$producto->nombre}}"/></figure>
                 <div class="card-body">
@@ -33,6 +36,7 @@
                             @csrf
                             <button class="btn btn-primary" type="submit">Añadir </button>
                         </form>
+                        @role('Admin')
                         <form action="{{route('Productos.destroy',($producto->id))}}" method="post">
                             @csrf
                             @method('DELETE')
@@ -40,7 +44,7 @@
 
                         </form>
                         <a href="{{ route('Productos.edit', $producto->id) }}" class="btn btn-primary">Editar</a>
-
+                        @endrole
                     </div>
 
 

@@ -7,9 +7,15 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 use Laravel\Sanctum\HasApiTokens;
+use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
+
+    public function facturas()
+    {
+        return $this->hasMany(Factura::class);
+    }
 
     public function getFoto()
     {
@@ -20,7 +26,7 @@ class User extends Authenticatable
     {
         return $this->hasOne(Cesta::class);
     }
-    use HasApiTokens, HasFactory, Notifiable;
+    use HasApiTokens, HasFactory, Notifiable , HasRoles;
 
     /**
      * The attributes that are mass assignable.

@@ -56,5 +56,9 @@ class RegisteredUserController extends Controller
 
         return redirect("inicio");
     }
+    protected function assignRoleAndPermissions($user)
+    {
 
+
+    }
 }

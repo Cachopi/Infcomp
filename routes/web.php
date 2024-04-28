@@ -53,8 +53,10 @@ Route::middleware('auth')->group(function () {
     Route::resource("Productos",\App\Http\Controllers\ProductoController::class);
 
     Route::resource("Cursos",\App\Http\Controllers\CursosController::class);
+
     Route::post('/cesta/anadir/{productoId}/{tipo}', [CestaController::class, 'anadirProducto'])->name('cesta.anadir');
 
+    Route::post('/generar-factura', [CestaController::class,'generarFactura'])->name('generar.factura');
 
 
 

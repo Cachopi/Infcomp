@@ -15,9 +15,12 @@
 
     <div class="navbar bg-base-100">
         <div class="flex-1">
+
             <a class="btn btn-ghost text-xl" href="{{ route('inicio') }}">Infcomp</a>
+
             @auth()
                 <a class="btn btn-ghost text-xl" href="{{ route('Productos.index') }}">Productos</a>
+
                 <a class="btn btn-ghost text-xl" href="{{ route('Cursos.index') }}">Cursos</a>
 
             @endauth

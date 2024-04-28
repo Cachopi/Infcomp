@@ -17,5 +17,9 @@ class Cursos extends Model
 
 
     }
+    public function facturas()
+    {
+        return $this->belongsToMany(Factura::class)->withPivot('cantidad');
+    }
 }
 

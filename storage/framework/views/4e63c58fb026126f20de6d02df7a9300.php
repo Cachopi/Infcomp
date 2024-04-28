@@ -1,5 +1,4 @@
-@extends("inicio.inicio")
-@section("cesta_pagina")
+<?php $__env->startSection("cesta_pagina"); ?>
 <div class="bg-gray-100 bg-opacity-75 h-screen py-8 w-[80%] ">
     <div class="container mx-auto px-4 ">
         <h1 class="text-2xl font-semibold mb-4">Cesta</h1>
@@ -17,56 +16,56 @@
                         </thead>
                         <tbody class="m-6">
 
-                        @foreach($productosConCantidad as $producto)
+                        <?php $__currentLoopData = $productosConCantidad; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $producto): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr class="m-6 p-10">
                                 <td class="py-4">
                                     <div class="flex items-center">
-                                        <img class="h-16 w-16 mr-4" src="storage/{{$producto['producto']->ruta}}" alt="Product image">
-                                        <span class="font-semibold">{{$producto['producto']->nombre}}</span>
+                                        <img class="h-16 w-16 mr-4" src="storage/<?php echo e($producto['producto']->ruta); ?>" alt="Product image">
+                                        <span class="font-semibold"><?php echo e($producto['producto']->nombre); ?></span>
                                     </div>
                                 </td>
-                                <td class="py-4">{{$producto['producto']->precio}}</td>
+                                <td class="py-4"><?php echo e($producto['producto']->precio); ?></td>
                                 <td class="py-4">
                                     <div class="flex items-center">
-                                        <form action="{{ route('cesta.restar', $producto['producto']->id) }}" method="POST">
-                                            @csrf
+                                        <form action="<?php echo e(route('cesta.restar', $producto['producto']->id)); ?>" method="POST">
+                                            <?php echo csrf_field(); ?>
                                             <button type="submit" class="border rounded-md py-2 px-4 mr-2">-</button>
                                         </form>
-                                        <span class="text-center w-8">{{ $producto['cantidad'] }}</span>
-                                        <form action="{{ route('cesta.sumar', $producto['producto']->id) }}" method="POST">
-                                            @csrf
+                                        <span class="text-center w-8"><?php echo e($producto['cantidad']); ?></span>
+                                        <form action="<?php echo e(route('cesta.sumar', $producto['producto']->id)); ?>" method="POST">
+                                            <?php echo csrf_field(); ?>
                                             <button type="submit" class="border rounded-md py-2 px-4 ml-2">+</button>
                                         </form>
                                     </div>
                                 </td>
-                                <td class="py-4">{{$producto['subtotal'] }}€ </td>
+                                <td class="py-4"><?php echo e($producto['subtotal']); ?>€ </td>
                             </tr>
-                        @endforeach
-                        @foreach($cursosConCantidad as $curso)
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+                        <?php $__currentLoopData = $cursosConCantidad; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $curso): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr class="m-6 p-10">
                                 <td class="py-4">
                                     <div class="flex items-center">
-                                        <img class="h-16 w-16 mr-4" src="storage/{{$curso['curso']->ruta}}" alt="Curso image">
-                                        <span class="font-semibold">{{$curso['curso']->nombre}}</span>
+                                        <img class="h-16 w-16 mr-4" src="storage/<?php echo e($curso['curso']->ruta); ?>" alt="Curso image">
+                                        <span class="font-semibold"><?php echo e($curso['curso']->nombre); ?></span>
                                     </div>
                                 </td>
-                                <td class="py-4">{{$curso['curso']->precio}}</td>
+                                <td class="py-4"><?php echo e($curso['curso']->precio); ?></td>
                                 <td class="py-4">
                                     <div class="flex items-center">
-                                        <form action="{{ route('cesta.restarCurso', $curso['curso']->id) }}" method="POST">
-                                            @csrf
+                                        <form action="<?php echo e(route('cesta.restarCurso', $curso['curso']->id)); ?>" method="POST">
+                                            <?php echo csrf_field(); ?>
                                             <button type="submit" class="border rounded-md py-2 px-4 mr-2">-</button>
                                         </form>
-                                        <span class="text-center w-8">{{ $curso['cantidad'] }}</span>
-                                        <form action="{{ route('cesta.sumarCurso', $curso['curso']->id) }}" method="POST">
-                                            @csrf
+                                        <span class="text-center w-8"><?php echo e($curso['cantidad']); ?></span>
+                                        <form action="<?php echo e(route('cesta.sumarCurso', $curso['curso']->id)); ?>" method="POST">
+                                            <?php echo csrf_field(); ?>
                                             <button type="submit" class="border rounded-md py-2 px-4 ml-2">+</button>
                                         </form>
                                     </div>
                                 </td>
-                                <td class="py-4">{{$curso['subtotal'] }}€ </td>
+                                <td class="py-4"><?php echo e($curso['subtotal']); ?>€ </td>
                             </tr>
-                        @endforeach
+                        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                         <!-- More product rows -->
                         </tbody>
                     </table>
@@ -81,10 +80,10 @@
                     <hr class="my-2">
                     <div class="flex justify-between mb-2">
                         <span class="font-semibold">Total</span>
-                        <span class="font-semibold">{{$total}}€</span>
+                        <span class="font-semibold"><?php echo e($total); ?>€</span>
                     </div>
-                    <form  action="{{route('generar.factura')}}" method="POST">
-                        @csrf
+                    <form  action="<?php echo e(route('generar.factura')); ?>" method="POST">
+                        <?php echo csrf_field(); ?>
                     <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">Comprar</button>
                     </form>
                 </div>
@@ -92,4 +91,6 @@
         </div>
     </div>
 </div>
-@endsection
+<?php $__env->stopSection(); ?>
+
+<?php echo $__env->make("inicio.inicio", \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\DAW\proyecto 2daw\Infcomp\resources\views/cesta/cesta.blade.php ENDPATH**/ ?>

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Models\Cesta;
+use App\Models\Factura;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCestaRequest;
 use App\Http\Requests\UpdateCestaRequest;
@@ -320,4 +321,46 @@ $this->actualizarSesion($cesta);
         \Illuminate\Support\Facades\Session::put('cursoSesion', $cursosParaSesion); // Guarda los cursos en la sesión
         Session::put('total', $total);
     }
+    public function generarFactura()
+    {
+        $usuario = Auth::user(); // Obtener el usuario autenticado
+        $cesta = $usuario->cesta; // Obtener la cesta del usuario
+
+        // Obtener los productos y cursos actuales del carrito
+        $productosEnCesta = $cesta->productos()->get();
+        $cursosEnCesta = $cesta->cursos()->get();
+
+        // Calcular el total de la factura
+        $total = 0;
+        foreach ($productosEnCesta as $producto) {
+            $total += $producto->precio * $producto->pivot->cantidad;
+        }
+        foreach ($cursosEnCesta as $curso) {
+            $total += $curso->precio * $curso->pivot->cantidad;
+        }
+
+        // Crear una nueva factura
+        $factura = new Factura();
+        $factura->user_id = $usuario->id;
+        $factura->total = $total;
+        // Puedes agregar más campos a la factura si es necesario
+
+        // Guardar la factura en la base de datos
+        $factura->save();
+
+        // Asociar los productos y cursos a la factura
+        $factura->productos()->sync($productosEnCesta->pluck('id')->toArray());
+        $factura->cursos()->sync($cursosEnCesta->pluck('id')->toArray());
+
+        // Vaciar la cesta del usuario
+        $cesta->productos()->detach();
+        $cesta->cursos()->detach();
+
+        // Actualizar los datos en la sesión
+        $this->actualizarSesion($cesta);
+
+        // Redireccionar o devolver una respuesta según sea necesario
+        return redirect()->back()->with('success', 'Factura generada y cesta vaciada');
+    }
+
 }
