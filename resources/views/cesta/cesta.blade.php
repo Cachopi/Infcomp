@@ -1,13 +1,37 @@
 @extends("inicio.inicio")
+
+@section('content')
+
+
+    @if(Session::has('error'))
+        <div id="error-popup" class="popup" style="display:none;">
+            {{ Session::get('error') }}
+        </div>
+    @endif
+
+    @if(Session::has('success'))
+        <div id="success-popup" class="success-popup">
+            {{ Session::get('success') }}
+        </div>
+    @endif
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var errorPopup = document.getElementById('error-popup');
+            if (errorPopup) {
+                errorPopup.style.display = 'block'; // Mostrar el mensaje de error
+
+                setTimeout(function() {
+                    errorPopup.style.display = 'none'; // Ocultar el mensaje de error después de 10 segundos
+                }, 10000); // 10 segundos en milisegundos
+            }
+        });
+    </script>
+
+@endsection
 @section("cesta_pagina")
-    <script src="{{ asset('js/jquery.min.js') }}"></script>
 
-
-    <script > const $ = require('jquery'); // Import jQuery
-
-        $(document).ready(function() {
-            console.log('jQuery is working!'); // Check if jQuery is accessible
-        });</script>
 
 
 <div class="bg-gray-100 bg-opacity-75 h-screen py-8 w-[80%] ">
@@ -26,7 +50,11 @@
                         </tr>
                         </thead>
                         <tbody class="m-6">
-
+                        @if(Session::has('error'))
+                            <div class="popup">
+                                {{ Session::get('error') }}
+                            </div>
+                        @endif
                         @foreach($productosConCantidad as $producto)
                             <tr class="m-6 p-10">
                                 <td class="py-4">

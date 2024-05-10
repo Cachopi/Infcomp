@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Session;
 use PayPal\Api\Amount;
 use PayPal\Api\Payer;
 use PayPal\Api\Payment;
@@ -40,7 +41,9 @@ class PayPalController extends Controller
 
         // Verificar si hay productos en la cesta
         if ($productos->isEmpty() && $cursos->isEmpty()) {
-            return redirect()->back()->withErrors('No hay productos en la cesta.');
+            Session::flash('error', 'No hay productos en la cesta.');
+
+            return redirect()->back();
         }
 
         $sum = 0;

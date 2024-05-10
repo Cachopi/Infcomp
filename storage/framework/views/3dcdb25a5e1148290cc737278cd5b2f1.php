@@ -1,12 +1,37 @@
+<?php $__env->startSection('content'); ?>
+
+
+    <?php if(Session::has('error')): ?>
+        <div id="error-popup" class="popup" style="display:none;">
+            <?php echo e(Session::get('error')); ?>
+
+        </div>
+    <?php endif; ?>
+
+    <?php if(Session::has('success')): ?>
+        <div id="success-popup" class="success-popup">
+            <?php echo e(Session::get('success')); ?>
+
+        </div>
+    <?php endif; ?>
+
+
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            var errorPopup = document.getElementById('error-popup');
+            if (errorPopup) {
+                errorPopup.style.display = 'block'; // Mostrar el mensaje de error
+
+                setTimeout(function() {
+                    errorPopup.style.display = 'none'; // Ocultar el mensaje de error después de 10 segundos
+                }, 10000); // 10 segundos en milisegundos
+            }
+        });
+    </script>
+
+<?php $__env->stopSection(); ?>
 <?php $__env->startSection("cesta_pagina"); ?>
-    <script src="<?php echo e(asset('js/jquery.min.js')); ?>"></script>
 
-
-    <script > const $ = require('jquery'); // Import jQuery
-
-        $(document).ready(function() {
-            console.log('jQuery is working!'); // Check if jQuery is accessible
-        });</script>
 
 
 <div class="bg-gray-100 bg-opacity-75 h-screen py-8 w-[80%] ">
@@ -25,7 +50,12 @@
                         </tr>
                         </thead>
                         <tbody class="m-6">
+                        <?php if(Session::has('error')): ?>
+                            <div class="popup">
+                                <?php echo e(Session::get('error')); ?>
 
+                            </div>
+                        <?php endif; ?>
                         <?php $__currentLoopData = $productosConCantidad; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $producto): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
                             <tr class="m-6 p-10">
                                 <td class="py-4">

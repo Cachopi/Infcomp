@@ -5,6 +5,8 @@
     <meta name="viewport"
           content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <script src="<?php echo e(asset('js/jquery.min.js')); ?>"></script>
+
 
 
     <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css','resources/js/app.js']); ?>
@@ -31,6 +33,9 @@
 <?php $component = $__componentOriginalfd1f218809a441e923395fcbf03e4272; ?>
 <?php unset($__componentOriginalfd1f218809a441e923395fcbf03e4272); ?>
 <?php endif; ?>
+<div class="container">
+    <?php echo $__env->yieldContent('content'); ?>
+</div>
 <main class="flex justify-center items-center  m-40 ">
 
     <?php echo $__env->yieldContent('login'); ?>

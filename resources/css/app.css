@@ -8,3 +8,50 @@ body{
     background-size: cover;
 
 }
+.popup {
+    position: fixed;
+    top: 60px; /* Ajusta esta altura según la altura de tu encabezado */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ffcccc; /* Cambia esto al color que desees */
+    padding: 10px 20px;
+    border: 1px solid #ff0000; /* Cambia esto al color que desees */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 9999; /* Asegúrate de que esté por encima del resto del contenido */
+    width: 80%; /* Ajusta el ancho según tus preferencias */
+    max-width: calc(100% - 40px); /* Ancho máximo igual al 100% del ancho del viewport menos el padding */
+    text-align: center; /* Centra el texto horizontalmente */
+    margin-top: 10px; /* Ajusta el margen superior según sea necesario */
+}
+
+/* Estilos adicionales para mejorar la apariencia */
+.popup p {
+    margin: 0;
+    color: #ff0000; /* Cambia esto al color que desees */
+    font-weight: bold;
+}
+
+.success-popup {
+    display: flex; /* Usa flexbox para alinear elementos */
+    align-items: center; /* Centra verticalmente el contenido */
+    justify-content: center; /* Centra horizontalmente el contenido */
+    position: fixed;
+    top: 60px; /* Ajusta esta altura según la altura de tu encabezado */
+    left: 50%;
+    transform: translateX(-50%);
+    background-color: #ccffcc; /* Cambia esto al color que desees para el mensaje de éxito */
+    padding: 10px 20px;
+    border: 1px solid #00cc00; /* Cambia esto al color que desees para el borde */
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    z-index: 9999; /* Asegúrate de que esté por encima del resto del contenido */
+    width: calc(100% - 40px); /* Ancho máximo igual al 100% del ancho del viewport menos el padding */
+    max-width: 400px; /* Ajusta el ancho máximo según tus preferencias */
+    margin-top: 10px; /* Ajusta el margen superior según sea necesario */
+}
+
+/* Estilos adicionales para mejorar la apariencia */
+.success-popup p {
+    margin: 0;
+    color: #009900; /* Cambia esto al color que desees para el texto del mensaje de éxito */
+    font-weight: bold;
+}
