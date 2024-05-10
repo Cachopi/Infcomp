@@ -14,9 +14,11 @@
 
 {{--mostrar cursos--}}
 <main class="p-5 min-h-screen">
+    @role('Admin')
     <div class="mt-4 flex flex-row-reverse ">
         <a href="{{ route('Cursos.create') }}" class="btn btn-success">Agregar Curso</a>
     </div>
+    @endrole
 
     <section class=" flex flex-row p-2 flex-wrap ">
 
@@ -29,19 +31,21 @@
                     <h3 class="flex flex-row-reverse mb-2 text-red-700 font-bold">{{$curso->precio}} €</h3>
 
                     <div class="card-actions justify-end">
-
+                        @auth()
                         <form action="{{ route('cesta.anadir', [$curso->id, 'tipo' => 'curso']) }}" method="POST">
                             @csrf
-                            <button class="btn btn-primary" type="submit">Añadir </button>
+                            <button class="btn btn-primary hover:bg-blue-500" type="submit">Añadir </button>
                         </form>
+                        @endauth
+                        @role('Admin')
                         <form action="{{route('Cursos.destroy',($curso->id))}}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-primary">Eliminar</button>
+                            <button type="submit" class="btn btn-primary bg-red-700 border-red-700  hover:bg-red-500">Eliminar</button>
 
                         </form>
-                        <a href="{{ route('Cursos.edit', $curso->id) }}" class="btn btn-primary">Editar</a>
-
+                        <a href="{{ route('Cursos.edit', $curso->id) }}" class="btn btn-primary hover:bg-blue-500">Editar</a>
+                        @endrole
                     </div>
 
 

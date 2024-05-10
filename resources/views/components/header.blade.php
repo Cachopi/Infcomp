@@ -18,12 +18,15 @@
 
             <a class="btn btn-ghost text-xl" href="{{ route('inicio') }}">Infcomp</a>
 
-            @auth()
+
                 <a class="btn btn-ghost text-xl" href="{{ route('Productos.index') }}">Productos</a>
 
                 <a class="btn btn-ghost text-xl" href="{{ route('Cursos.index') }}">Cursos</a>
+@role('Admin')
+                <a class="btn btn-ghost text-xl" href="{{ route('Usuarios.index') }}">Usuarios</a>
+            <a class="btn btn-ghost text-xl" href="{{ route('Facturas.index') }}">Facturas</a>
+@endrole
 
-            @endauth
         </div>
         <div class="flex-none">
             @auth
@@ -41,14 +44,14 @@
                         </div>
                     </div>
 
-                    {{--           prueba carrito         --}}
+
 
                     <div class="max-w-96 mx-auto mt-16 bg-white rounded-lg overflow-hidden md:max-w-lg border border-gray-400 mt-3 z-[1] card card-compact dropdown-content w-80 bg-base-100 shadow">
                         <div class="px-4 py-2 border-b border-gray-200">
                             <h1 class="text-2xl font-semibold mb-5">Tu Cesta</h1>
 
-{{----}}
-                            <div class="container mx-auto mt-10 w-auto overflow-y-scroll h-[700px] ">
+
+                            <div class="container mx-auto mt-10 w-auto overflow-y-scroll h-[600px] ">
 
 
 
@@ -133,6 +136,12 @@
                 <li>
                     <a class="justify-between"   href=" {{route('profile.edit')}}">
                      Perfil
+                    </a>
+                </li>
+
+                <li>
+                    <a class="justify-between" href="{{ route('facturas.mostrar') }}"   >
+                       Facturas
                     </a>
                 </li>
 

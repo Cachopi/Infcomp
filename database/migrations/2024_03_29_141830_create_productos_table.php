@@ -17,6 +17,7 @@ return new class extends Migration
             $table->string("descripcion");
             $table->float("precio");
             $table->string("ruta");
+            $table->integer('stock')->default(0);
             $table->timestamps();
         });
     }

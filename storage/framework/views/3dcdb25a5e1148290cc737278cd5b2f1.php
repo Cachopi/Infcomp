@@ -1,4 +1,14 @@
 <?php $__env->startSection("cesta_pagina"); ?>
+    <script src="<?php echo e(asset('js/jquery.min.js')); ?>"></script>
+
+
+    <script > const $ = require('jquery'); // Import jQuery
+
+        $(document).ready(function() {
+            console.log('jQuery is working!'); // Check if jQuery is accessible
+        });</script>
+
+
 <div class="bg-gray-100 bg-opacity-75 h-screen py-8 w-[80%] ">
     <div class="container mx-auto px-4 ">
         <h1 class="text-2xl font-semibold mb-4">Cesta</h1>
@@ -82,7 +92,10 @@
                         <span class="font-semibold">Total</span>
                         <span class="font-semibold"><?php echo e($total); ?>€</span>
                     </div>
-                    <button class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">Comprar</button>
+                    <form  action="<?php echo e(route('paypal.process')); ?>" >
+                        <?php echo csrf_field(); ?>
+                        <button type="submit" class="bg-blue-500 text-white py-2 px-4 rounded-lg mt-4 w-full">Comprar</button>
+                    </form>
                 </div>
             </div>
         </div>

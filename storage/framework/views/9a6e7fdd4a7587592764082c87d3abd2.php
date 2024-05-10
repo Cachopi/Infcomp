@@ -9,7 +9,7 @@
     <title>Productos</title>
 
 </head>
-<body >
+<body>
 <?php if (isset($component)) { $__componentOriginalfd1f218809a441e923395fcbf03e4272 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalfd1f218809a441e923395fcbf03e4272 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.header','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -30,35 +30,46 @@
 <?php unset($__componentOriginalfd1f218809a441e923395fcbf03e4272); ?>
 <?php endif; ?>
 <main class="p-5">
+    <?php if (\Illuminate\Support\Facades\Blade::check('role', 'Admin')): ?>
     <div class="mt-4 flex flex-row-reverse ">
         <a href="<?php echo e(route('Productos.create')); ?>" class="btn btn-success">Agregar Producto</a>
     </div>
+    <?php endif; ?>
 
     <section class=" flex flex-row p-2 flex-wrap">
 
 
         <?php $__currentLoopData = $productos; $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $producto): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+
             <div class="card w-96 glass  m-3">
                 <figure><img src="<?php echo e(asset('storage/'.$producto->ruta)); ?>" alt="<?php echo e($producto->nombre); ?>"/></figure>
                 <div class="card-body">
                     <h2 class="card-title"><?php echo e($producto->nombre); ?></h2>
                     <p><?php echo e($producto->descripcion); ?></p>
                     <h3 class="flex flex-row-reverse mb-2 text-red-700 font-bold"><?php echo e($producto->precio); ?> €</h3>
-
+                    <?php if (\Illuminate\Support\Facades\Blade::check('role', 'Admin')): ?>
+                    <h3 class="flex flex-row-reverse mb-2 text-red-700 font-bold">Stock: <?php echo e($producto->stock); ?> UD</h3>
+                    <?php endif; ?>
                     <div class="card-actions justify-end">
-
-                        <form action="<?php echo e(route('cesta.anadir', [$producto->id,'tipo'=>'producto'])); ?>" method="POST">
-                            <?php echo csrf_field(); ?>
-                            <button class="btn btn-primary" type="submit">Añadir </button>
-                        </form>
+                        <?php if(auth()->guard()->check()): ?>
+                            <form action="<?php echo e(route('cesta.anadir', [$producto->id,'tipo'=>'producto'])); ?>"
+                                  method="POST">
+                                <?php echo csrf_field(); ?>
+                                <button class="btn btn-primary hover:bg-blue-500" type="submit">Añadir</button>
+                            </form>
+                        <?php endif; ?>
+                        <?php if (\Illuminate\Support\Facades\Blade::check('role', 'Admin')): ?>
                         <form action="<?php echo e(route('Productos.destroy',($producto->id))); ?>" method="post">
                             <?php echo csrf_field(); ?>
                             <?php echo method_field('DELETE'); ?>
-                            <button type="submit" class="btn btn-primary">Eliminar</button>
+                            <button type="submit" class="btn btn-primary bg-red-700 border-danger-700 hover:bg-red-500">
+                                Eliminar
+                            </button>
 
                         </form>
-                        <a href="<?php echo e(route('Productos.edit', $producto->id)); ?>" class="btn btn-primary">Editar</a>
-
+                        <a href="<?php echo e(route('Productos.edit', $producto->id)); ?>"
+                           class="btn btn-primary hover:bg-blue-500">Editar</a>
+                        <?php endif; ?>
                     </div>
 
 

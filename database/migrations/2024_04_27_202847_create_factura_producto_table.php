@@ -15,7 +15,7 @@ return new class extends Migration
             $table->id();
             $table->foreignId('factura_id')->constrained()->onDelete('cascade');
             $table->foreignId('producto_id')->constrained()->onDelete('cascade');
-            $table->integer('cantidad')->nullable();  // O cualquier otro campo que necesites
+            $table->integer('cantidad')->nullable();
             $table->timestamps();
         });
     }

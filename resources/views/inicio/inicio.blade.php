@@ -23,6 +23,13 @@
     @yield("updateCursos")
     @yield("cesta_pagina")
     @yield("perfil")
+    @yield("usuarios")
+    @yield("crear_usuario")
+@yield('actualizar_usuario')
+@yield('mostrar_facturas')
+    @yield('show_factura')
+    @yield('facturas_perfil')
+    @yield('paypal')
 
 
 </main>

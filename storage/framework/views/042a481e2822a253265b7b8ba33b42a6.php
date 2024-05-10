@@ -15,12 +15,18 @@
 
     <div class="navbar bg-base-100">
         <div class="flex-1">
-            <a class="btn btn-ghost text-xl" href="<?php echo e(route('inicio')); ?>">Infcomp</a>
-            <?php if(auth()->guard()->check()): ?>
-                <a class="btn btn-ghost text-xl" href="<?php echo e(route('Productos.index')); ?>">Productos</a>
-                <a class="btn btn-ghost text-xl" href="<?php echo e(route('Cursos.index')); ?>">Cursos</a>
 
-            <?php endif; ?>
+            <a class="btn btn-ghost text-xl" href="<?php echo e(route('inicio')); ?>">Infcomp</a>
+
+
+                <a class="btn btn-ghost text-xl" href="<?php echo e(route('Productos.index')); ?>">Productos</a>
+
+                <a class="btn btn-ghost text-xl" href="<?php echo e(route('Cursos.index')); ?>">Cursos</a>
+<?php if (\Illuminate\Support\Facades\Blade::check('role', 'Admin')): ?>
+                <a class="btn btn-ghost text-xl" href="<?php echo e(route('Usuarios.index')); ?>">Usuarios</a>
+            <a class="btn btn-ghost text-xl" href="<?php echo e(route('Facturas.index')); ?>">Facturas</a>
+<?php endif; ?>
+
         </div>
         <div class="flex-none">
             <?php if(auth()->guard()->check()): ?>
@@ -38,14 +44,14 @@
                         </div>
                     </div>
 
-                    
+
 
                     <div class="max-w-96 mx-auto mt-16 bg-white rounded-lg overflow-hidden md:max-w-lg border border-gray-400 mt-3 z-[1] card card-compact dropdown-content w-80 bg-base-100 shadow">
                         <div class="px-4 py-2 border-b border-gray-200">
                             <h1 class="text-2xl font-semibold mb-5">Tu Cesta</h1>
 
 
-                            <div class="container mx-auto mt-10 w-auto overflow-y-scroll h-[700px] ">
+                            <div class="container mx-auto mt-10 w-auto overflow-y-scroll h-[600px] ">
 
 
 
@@ -130,6 +136,12 @@
                 <li>
                     <a class="justify-between"   href=" <?php echo e(route('profile.edit')); ?>">
                      Perfil
+                    </a>
+                </li>
+
+                <li>
+                    <a class="justify-between" href="<?php echo e(route('facturas.mostrar')); ?>"   >
+                       Facturas
                     </a>
                 </li>
 

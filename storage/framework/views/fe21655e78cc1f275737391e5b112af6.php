@@ -32,9 +32,11 @@
 
 
 <main class="p-5 min-h-screen">
+    <?php if (\Illuminate\Support\Facades\Blade::check('role', 'Admin')): ?>
     <div class="mt-4 flex flex-row-reverse ">
         <a href="<?php echo e(route('Cursos.create')); ?>" class="btn btn-success">Agregar Curso</a>
     </div>
+    <?php endif; ?>
 
     <section class=" flex flex-row p-2 flex-wrap ">
 
@@ -47,19 +49,21 @@
                     <h3 class="flex flex-row-reverse mb-2 text-red-700 font-bold"><?php echo e($curso->precio); ?> €</h3>
 
                     <div class="card-actions justify-end">
-
+                        <?php if(auth()->guard()->check()): ?>
                         <form action="<?php echo e(route('cesta.anadir', [$curso->id, 'tipo' => 'curso'])); ?>" method="POST">
                             <?php echo csrf_field(); ?>
-                            <button class="btn btn-primary" type="submit">Añadir </button>
+                            <button class="btn btn-primary hover:bg-blue-500" type="submit">Añadir </button>
                         </form>
+                        <?php endif; ?>
+                        <?php if (\Illuminate\Support\Facades\Blade::check('role', 'Admin')): ?>
                         <form action="<?php echo e(route('Cursos.destroy',($curso->id))); ?>" method="post">
                             <?php echo csrf_field(); ?>
                             <?php echo method_field('DELETE'); ?>
-                            <button type="submit" class="btn btn-primary">Eliminar</button>
+                            <button type="submit" class="btn btn-primary bg-red-700 border-red-700  hover:bg-red-500">Eliminar</button>
 
                         </form>
-                        <a href="<?php echo e(route('Cursos.edit', $curso->id)); ?>" class="btn btn-primary">Editar</a>
-
+                        <a href="<?php echo e(route('Cursos.edit', $curso->id)); ?>" class="btn btn-primary hover:bg-blue-500">Editar</a>
+                        <?php endif; ?>
                     </div>
 
 

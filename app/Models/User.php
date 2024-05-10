@@ -12,6 +12,7 @@ use Spatie\Permission\Traits\HasRoles;
 class User extends Authenticatable
 {
 
+
     public function facturas()
     {
         return $this->hasMany(Factura::class);

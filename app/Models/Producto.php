@@ -9,7 +9,8 @@ class Producto extends Model
 {
     use HasFactory;
 
-    protected $fillable=["nombre","descripcion","precio","ruta"];
+    protected $fillable = ['nombre', 'descripcion', 'precio', 'ruta', 'stock'];
+
 
     public function cesta()
     {

@@ -41,6 +41,13 @@
     <?php echo $__env->yieldContent("updateCursos"); ?>
     <?php echo $__env->yieldContent("cesta_pagina"); ?>
     <?php echo $__env->yieldContent("perfil"); ?>
+    <?php echo $__env->yieldContent("usuarios"); ?>
+    <?php echo $__env->yieldContent("crear_usuario"); ?>
+<?php echo $__env->yieldContent('actualizar_usuario'); ?>
+<?php echo $__env->yieldContent('mostrar_facturas'); ?>
+    <?php echo $__env->yieldContent('show_factura'); ?>
+    <?php echo $__env->yieldContent('facturas_perfil'); ?>
+    <?php echo $__env->yieldContent('paypal'); ?>
 
 
 </main>

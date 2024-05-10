@@ -39,6 +39,7 @@ class ProductoController extends Controller
         $request->validate([
             'nombre' => 'required',
             'imagen' => 'required|image|max:2048', // máximo 2MB
+            'stock' => 'required|integer|min:0',
         ]);
 
 
@@ -55,7 +56,8 @@ class ProductoController extends Controller
             'nombre' => $request->nombre,
             'descripcion' => $request->descripcion,
             'precio' => $request->precio,
-            'ruta' => $ruta
+            'ruta' => $ruta,
+            'stock' => $request->stock,
         ]);
         $producto->save();
         $productos = Producto::all();
@@ -104,7 +106,8 @@ class ProductoController extends Controller
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'precio' => 'required|numeric|min:0',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validación para la imagen
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
+            'stock' => 'required|integer|min:0'// Validación para la imagen
         ]);
 
         // Buscar el producto por ID
@@ -119,6 +122,7 @@ class ProductoController extends Controller
         $producto->nombre = $request->input('nombre');
         $producto->descripcion = $request->input('descripcion');
         $producto->precio = $request->input('precio');
+        $producto->stock = $request->stock;
 
         // Procesar la carga de la imagen
         if ($request->hasFile('imagen')) {

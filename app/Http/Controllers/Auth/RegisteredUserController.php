@@ -50,6 +50,7 @@ class RegisteredUserController extends Controller
             'foto_perfil' => $path,
         ]);
 
+        $this->assignRoleAndPermissions($user);
         event(new Registered($user));
 
         Auth::login($user);
@@ -58,7 +59,6 @@ class RegisteredUserController extends Controller
     }
     protected function assignRoleAndPermissions($user)
     {
-
-
+        $user->assignRole('Usuario'); // Asignar el rol 'Usuario' al usuario creado
     }
 }

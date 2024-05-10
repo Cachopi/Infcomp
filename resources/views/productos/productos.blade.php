@@ -9,7 +9,7 @@
     <title>Productos</title>
 
 </head>
-<body >
+<body>
 <x-header></x-header>
 <main class="p-5">
     @role('Admin')
@@ -29,21 +29,28 @@
                     <h2 class="card-title">{{$producto->nombre}}</h2>
                     <p>{{$producto->descripcion}}</p>
                     <h3 class="flex flex-row-reverse mb-2 text-red-700 font-bold">{{$producto->precio}} €</h3>
-
+                    @role('Admin')
+                    <h3 class="flex flex-row-reverse mb-2 text-red-700 font-bold">Stock: {{$producto->stock}} UD</h3>
+                    @endrole
                     <div class="card-actions justify-end">
-
-                        <form action="{{ route('cesta.anadir', [$producto->id,'tipo'=>'producto']) }}" method="POST">
-                            @csrf
-                            <button class="btn btn-primary" type="submit">Añadir </button>
-                        </form>
+                        @auth()
+                            <form action="{{ route('cesta.anadir', [$producto->id,'tipo'=>'producto']) }}"
+                                  method="POST">
+                                @csrf
+                                <button class="btn btn-primary hover:bg-blue-500" type="submit">Añadir</button>
+                            </form>
+                        @endauth
                         @role('Admin')
                         <form action="{{route('Productos.destroy',($producto->id))}}" method="post">
                             @csrf
                             @method('DELETE')
-                            <button type="submit" class="btn btn-primary">Eliminar</button>
+                            <button type="submit" class="btn btn-primary bg-red-700 border-danger-700 hover:bg-red-500">
+                                Eliminar
+                            </button>
 
                         </form>
-                        <a href="{{ route('Productos.edit', $producto->id) }}" class="btn btn-primary">Editar</a>
+                        <a href="{{ route('Productos.edit', $producto->id) }}"
+                           class="btn btn-primary hover:bg-blue-500">Editar</a>
                         @endrole
                     </div>
 
