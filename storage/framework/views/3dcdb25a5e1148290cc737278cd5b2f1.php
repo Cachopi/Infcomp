@@ -20,11 +20,11 @@
         document.addEventListener('DOMContentLoaded', function() {
             var errorPopup = document.getElementById('error-popup');
             if (errorPopup) {
-                errorPopup.style.display = 'block'; // Mostrar el mensaje de error
+                errorPopup.style.display = 'block';
 
                 setTimeout(function() {
-                    errorPopup.style.display = 'none'; // Ocultar el mensaje de error después de 10 segundos
-                }, 10000); // 10 segundos en milisegundos
+                    errorPopup.style.display = 'none';
+                }, 10000);
             }
         });
     </script>

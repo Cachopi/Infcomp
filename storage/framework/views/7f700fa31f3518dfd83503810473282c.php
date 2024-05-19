@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
 
 
+
     <?php echo app('Illuminate\Foundation\Vite')('resources/css/app.css'); ?>
     <title>Infcomp</title>
 

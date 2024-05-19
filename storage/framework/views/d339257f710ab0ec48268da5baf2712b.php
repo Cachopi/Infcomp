@@ -3,17 +3,25 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport"
-          content="width=device-width, user-scalable=no, initial-scale=1.0, maximum-scale=1.0, minimum-scale=1.0">
+          content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="<?php echo e(asset('js/jquery.min.js')); ?>"></script>
 
-
-
     <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css','resources/js/app.js']); ?>
     <title>Infcomp</title>
-
+    <style>
+        body {
+            display: flex;
+            flex-direction: column;
+            min-height: 100vh;
+            margin: 0;
+        }
+        main {
+            flex: 1;
+        }
+    </style>
 </head>
-<body class="min-h-1/2">
+<body>
 <?php if (isset($component)) { $__componentOriginalfd1f218809a441e923395fcbf03e4272 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginalfd1f218809a441e923395fcbf03e4272 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.header','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -33,10 +41,10 @@
 <?php $component = $__componentOriginalfd1f218809a441e923395fcbf03e4272; ?>
 <?php unset($__componentOriginalfd1f218809a441e923395fcbf03e4272); ?>
 <?php endif; ?>
-<div class="container">
-    <?php echo $__env->yieldContent('content'); ?>
-</div>
-<main class="flex justify-center items-center  m-40 ">
+<main class="flex flex-col justify-center items-center flex-1 m-10">
+    <div class="container">
+        <?php echo $__env->yieldContent('content'); ?>
+    </div>
 
     <?php echo $__env->yieldContent('login'); ?>
     <?php echo $__env->yieldContent('registro'); ?>
@@ -48,13 +56,11 @@
     <?php echo $__env->yieldContent("perfil"); ?>
     <?php echo $__env->yieldContent("usuarios"); ?>
     <?php echo $__env->yieldContent("crear_usuario"); ?>
-<?php echo $__env->yieldContent('actualizar_usuario'); ?>
-<?php echo $__env->yieldContent('mostrar_facturas'); ?>
+    <?php echo $__env->yieldContent('actualizar_usuario'); ?>
+    <?php echo $__env->yieldContent('mostrar_facturas'); ?>
     <?php echo $__env->yieldContent('show_factura'); ?>
     <?php echo $__env->yieldContent('facturas_perfil'); ?>
     <?php echo $__env->yieldContent('paypal'); ?>
-
-
 </main>
 <?php if (isset($component)) { $__componentOriginal8a8716efb3c62a45938aca52e78e0322 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal8a8716efb3c62a45938aca52e78e0322 = $attributes; } ?>

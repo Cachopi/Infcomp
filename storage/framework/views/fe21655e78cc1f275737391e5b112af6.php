@@ -49,7 +49,7 @@
                     <h3 class="flex flex-row-reverse mb-2 text-red-700 font-bold"><?php echo e($curso->precio); ?> €</h3>
 
                     <div class="card-actions justify-end">
-                        <?php if(auth()->guard()->check()): ?>
+                        <?php if (\Illuminate\Support\Facades\Blade::check('role', 'Usuario')): ?>
                         <form action="<?php echo e(route('cesta.anadir', [$curso->id, 'tipo' => 'curso'])); ?>" method="POST">
                             <?php echo csrf_field(); ?>
                             <button class="btn btn-primary hover:bg-blue-500" type="submit">Añadir </button>

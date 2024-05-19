@@ -33,13 +33,13 @@
                     <h3 class="flex flex-row-reverse mb-2 text-red-700 font-bold">Stock: {{$producto->stock}} UD</h3>
                     @endrole
                     <div class="card-actions justify-end">
-                        @auth()
+                        @role('Usuario')
                             <form action="{{ route('cesta.anadir', [$producto->id,'tipo'=>'producto']) }}"
                                   method="POST">
                                 @csrf
                                 <button class="btn btn-primary hover:bg-blue-500" type="submit">Añadir</button>
                             </form>
-                        @endauth
+                        @endrole
                         @role('Admin')
                         <form action="{{route('Productos.destroy',($producto->id))}}" method="post">
                             @csrf

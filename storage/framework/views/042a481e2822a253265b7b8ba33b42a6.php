@@ -28,8 +28,10 @@
 <?php endif; ?>
 
         </div>
+
         <div class="flex-none">
             <?php if(auth()->guard()->check()): ?>
+                <?php if (\Illuminate\Support\Facades\Blade::check('role', 'Usuario')): ?>
                 <div class="dropdown dropdown-end">
 
                     <div tabindex="0" role="button" class="btn btn-ghost btn-circle" >
@@ -123,6 +125,7 @@
                     </div>
                     
                 </div>
+                <?php endif; ?>
 
 
         </div>
@@ -138,13 +141,13 @@
                      Perfil
                     </a>
                 </li>
-
+<?php if (\Illuminate\Support\Facades\Blade::check('role', 'Usuario')): ?>
                 <li>
                     <a class="justify-between" href="<?php echo e(route('facturas.mostrar')); ?>"   >
                        Facturas
                     </a>
                 </li>
-
+<?php endif; ?>
                 <li>
                     <form action="<?php echo e(route("logout")); ?>" method="post">
                         <?php echo csrf_field(); ?>

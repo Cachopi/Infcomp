@@ -51,7 +51,7 @@
                     <h3 class="flex flex-row-reverse mb-2 text-red-700 font-bold">Stock: <?php echo e($producto->stock); ?> UD</h3>
                     <?php endif; ?>
                     <div class="card-actions justify-end">
-                        <?php if(auth()->guard()->check()): ?>
+                        <?php if (\Illuminate\Support\Facades\Blade::check('role', 'Usuario')): ?>
                             <form action="<?php echo e(route('cesta.anadir', [$producto->id,'tipo'=>'producto'])); ?>"
                                   method="POST">
                                 <?php echo csrf_field(); ?>

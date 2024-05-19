@@ -28,8 +28,10 @@
 @endrole
 
         </div>
+
         <div class="flex-none">
             @auth
+                @role('Usuario')
                 <div class="dropdown dropdown-end">
 
                     <div tabindex="0" role="button" class="btn btn-ghost btn-circle" >
@@ -123,6 +125,7 @@
                     </div>
                     {{--                  fin prueba  --}}
                 </div>
+                @endrole
 
 
         </div>
@@ -138,13 +141,13 @@
                      Perfil
                     </a>
                 </li>
-
+@role('Usuario')
                 <li>
                     <a class="justify-between" href="{{ route('facturas.mostrar') }}"   >
                        Facturas
                     </a>
                 </li>
-
+@endrole
                 <li>
                     <form action="{{route("logout")}}" method="post">
                         @csrf

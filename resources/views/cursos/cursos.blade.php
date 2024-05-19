@@ -31,12 +31,12 @@
                     <h3 class="flex flex-row-reverse mb-2 text-red-700 font-bold">{{$curso->precio}} €</h3>
 
                     <div class="card-actions justify-end">
-                        @auth()
+                        @role('Usuario')
                         <form action="{{ route('cesta.anadir', [$curso->id, 'tipo' => 'curso']) }}" method="POST">
                             @csrf
                             <button class="btn btn-primary hover:bg-blue-500" type="submit">Añadir </button>
                         </form>
-                        @endauth
+                        @endrole
                         @role('Admin')
                         <form action="{{route('Cursos.destroy',($curso->id))}}" method="post">
                             @csrf

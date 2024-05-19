@@ -13,7 +13,7 @@
                 </div>
                 <table class="table glass">
                     <thead>
-                    <tr>
+                    <tr><th>Image</th>
                         <th>Nombre</th>
                         <th>Email</th>
                         <th>Rol</th>
