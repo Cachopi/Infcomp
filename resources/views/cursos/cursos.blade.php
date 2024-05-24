@@ -20,10 +20,14 @@
     </div>
     @endrole
 
-    <section class=" flex flex-row p-2 flex-wrap ">
+    {{-- Contenedor del buscador centrado --}}
+    <div class="flex justify-center mt-4 mb-4">
+        <input type="text" id="searchInput" placeholder="Buscar cursos..." class="p-2 border border-gray-300 rounded-md">
+    </div>
 
+    <section class="flex flex-row p-2 flex-wrap">
         @foreach($cursos as $curso)
-            <div class="card w-96 glass  m-3">
+            <div class="card w-96 glass m-3 curso" data-nombre="{{ $curso->nombre }}" data-descripcion="{{ $curso->descripcion }}" data-precio="{{ $curso->precio }}" data-ruta="{{ asset('storage/'.$curso->ruta) }}" onclick="openModal(this)">
                 <figure class="p-2"><img src="{{asset('storage/'.$curso->ruta)}}" alt="{{$curso->nombre}}"/></figure>
                 <div class="card-body">
                     <h2 class="card-title">{{$curso->nombre}}</h2>
@@ -47,18 +51,30 @@
                         <a href="{{ route('Cursos.edit', $curso->id) }}" class="btn btn-primary hover:bg-blue-500">Editar</a>
                         @endrole
                     </div>
-
-
                 </div>
             </div>
-
         @endforeach
-
-
     </section>
 </main>
 
-
 <x-footer></x-footer>
+
+<script>
+    // Función para filtrar cursos según el texto ingresado en el buscador
+    document.getElementById('searchInput').addEventListener('input', function() {
+        var filter = this.value.toLowerCase();
+        var cursos = document.querySelectorAll('.curso');
+
+        cursos.forEach(function(curso) {
+            var nombre = curso.getAttribute('data-nombre').toLowerCase();
+            if (nombre.includes(filter)) {
+                curso.style.display = '';
+            } else {
+                curso.style.display = 'none';
+            }
+        });
+    });
+</script>
+
 </body>
 </html>

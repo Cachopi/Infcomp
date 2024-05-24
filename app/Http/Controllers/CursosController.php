@@ -149,4 +149,7 @@ class CursosController extends Controller
         $curso->delete();
         return redirect()->route('Cursos.index');
     }
+
+
+
 }

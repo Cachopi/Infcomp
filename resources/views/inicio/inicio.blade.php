@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="{{ asset('js/jquery.min.js') }}"></script>
 
+
     @vite(['resources/css/app.css','resources/js/app.js'])
     <title>Infcomp</title>
     <style>

@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <script src="<?php echo e(asset('js/jquery.min.js')); ?>"></script>
 
+
     <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css','resources/js/app.js']); ?>
     <title>Infcomp</title>
     <style>

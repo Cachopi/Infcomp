@@ -7,23 +7,21 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     @vite('resources/css/app.css')
     <title>Productos</title>
-
 </head>
 <body>
 <x-header></x-header>
 <main class="p-5">
+    <div class="flex justify-center mb-4">
+        <input type="text" id="searchInput" placeholder="Buscar productos..." class="input input-bordered w-full max-w-xs">
+    </div>
     @role('Admin')
-    <div class="mt-4 flex flex-row-reverse ">
+    <div class="mt-4 flex flex-row-reverse">
         <a href="{{ route('Productos.create') }}" class="btn btn-success">Agregar Producto</a>
     </div>
     @endrole
-
-    <section class=" flex flex-row p-2 flex-wrap">
-
-
+    <section class="flex flex-row p-2 flex-wrap">
         @foreach($productos as $producto)
-
-            <div class="card w-96 glass  m-3">
+            <div class="card w-96 glass m-3 producto" data-nombre="{{ $producto->nombre }}">
                 <figure><img src="{{asset('storage/'.$producto->ruta)}}" alt="{{$producto->nombre}}"/></figure>
                 <div class="card-body">
                     <h2 class="card-title">{{$producto->nombre}}</h2>
@@ -34,11 +32,10 @@
                     @endrole
                     <div class="card-actions justify-end">
                         @role('Usuario')
-                            <form action="{{ route('cesta.anadir', [$producto->id,'tipo'=>'producto']) }}"
-                                  method="POST">
-                                @csrf
-                                <button class="btn btn-primary hover:bg-blue-500" type="submit">Añadir</button>
-                            </form>
+                        <form action="{{ route('cesta.anadir', [$producto->id,'tipo'=>'producto']) }}" method="POST">
+                            @csrf
+                            <button class="btn btn-primary hover:bg-blue-500" type="submit">Añadir</button>
+                        </form>
                         @endrole
                         @role('Admin')
                         <form action="{{route('Productos.destroy',($producto->id))}}" method="post">
@@ -47,23 +44,30 @@
                             <button type="submit" class="btn btn-primary bg-red-700 border-danger-700 hover:bg-red-500">
                                 Eliminar
                             </button>
-
                         </form>
-                        <a href="{{ route('Productos.edit', $producto->id) }}"
-                           class="btn btn-primary hover:bg-blue-500">Editar</a>
+                        <a href="{{ route('Productos.edit', $producto->id) }}" class="btn btn-primary hover:bg-blue-500">Editar</a>
                         @endrole
                     </div>
-
-
                 </div>
             </div>
-
         @endforeach
-
-
     </section>
 </main>
 <x-footer></x-footer>
+<script>
+    document.getElementById('searchInput').addEventListener('input', function() {
+        var filter = this.value.toLowerCase();
+        var productos = document.querySelectorAll('.producto');
 
+        productos.forEach(function(producto) {
+            var nombre = producto.getAttribute('data-nombre').toLowerCase();
+            if (nombre.includes(filter)) {
+                producto.style.display = '';
+            } else {
+                producto.style.display = 'none';
+            }
+        });
+    });
+</script>
 </body>
 </html>
