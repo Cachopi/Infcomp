@@ -21,5 +21,10 @@ class Cursos extends Model
     {
         return $this->belongsToMany(Factura::class)->withPivot('cantidad');
     }
+
+    public function users()
+    {
+        return $this->belongsToMany(User::class, 'curso_user', 'curso_id', 'user_id')->withPivot('progreso')->withTimestamps();
+    }
 }
 

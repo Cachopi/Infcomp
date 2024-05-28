@@ -29,9 +29,44 @@
 <?php $component = $__componentOriginalfd1f218809a441e923395fcbf03e4272; ?>
 <?php unset($__componentOriginalfd1f218809a441e923395fcbf03e4272); ?>
 <?php endif; ?>
+<?php if(Session::has('error')): ?>
+    <div id="error-popup" class="popup" style="display:none;">
+        <?php echo e(Session::get('error')); ?>
 
+    </div>
+<?php endif; ?>
+<?php if($errors->any()): ?>
+    <div id="error-popup" class="popup">
+        <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
+            <?php echo e($error); ?>
+
+        <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
+    </div>
+<?php endif; ?>
+
+<?php if(Session::has('success')): ?>
+    <div id="success-popup" class="success-popup">
+        <?php echo e(Session::get('success')); ?>
+
+    </div>
+<?php endif; ?>
+<script>
+
+    setTimeout(function() {
+        document.querySelectorAll('.popup').forEach(function(element) {
+            element.style.display = 'none';
+        });
+    }, 3000);
+
+    setTimeout(function() {
+        document.querySelectorAll('.success-popup').forEach(function(element) {
+            element.style.display = 'none';
+        });
+    }, 3000);
+</script>
 
 <main class="p-5 min-h-screen">
+
     <?php if (\Illuminate\Support\Facades\Blade::check('role', 'Admin')): ?>
     <div class="mt-4 flex flex-row-reverse ">
         <a href="<?php echo e(route('Cursos.create')); ?>" class="btn btn-success">Agregar Curso</a>

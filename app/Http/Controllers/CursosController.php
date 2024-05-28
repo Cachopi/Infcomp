@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Cursos;
 use App\Http\Requests\StoreCursosRequest;
 use App\Http\Requests\UpdateCursosRequest;
+use Illuminate\Support\Facades\Auth;
 
 class CursosController extends Controller
 {
@@ -150,6 +151,25 @@ class CursosController extends Controller
         return redirect()->route('Cursos.index');
     }
 
+    public function misCursos()
+    {
+        $user = Auth::user();
+        $cursos = $user->cursos;
 
+        return view('cursos.usuario_curso', compact('cursos'));
+    }
+    public function eliminar_curso($id)
+    {
+        $usuario = Auth::user(); // Obtener el usuario autenticado
+
+        // Encuentra el curso por su ID
+        $curso = Cursos::findOrFail($id);
+
+        // Elimina la relación entre el usuario y el curso
+        $usuario->cursos()->detach($curso->id);
+
+        // Redirige de vuelta con un mensaje de éxito
+        return redirect()->back()->with('success', 'Curso eliminado exitosamente.');
+    }
 
 }

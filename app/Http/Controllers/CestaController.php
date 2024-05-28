@@ -5,6 +5,8 @@ namespace App\Http\Controllers;
 use App\Models\Cesta;
 use App\Models\Factura;
 use App\Models\Producto;
+use App\Models\User;
+use App\Models\Cursos;
 use Illuminate\Http\Request;
 use App\Http\Requests\StoreCestaRequest;
 use App\Http\Requests\UpdateCestaRequest;
@@ -66,12 +68,14 @@ class CestaController extends Controller
             $producto->stock -= $cantidadDeseada;
             $producto->save();
         } elseif ($tipo === 'curso') {
+
+            if ($usuario->cursos->contains($productoId)) {
+                return redirect()->back()->withErrors(['error' => 'Ya has comprado este curso anteriormente.']);
+            }
             // Verificar si el curso ya está en el carrito
             if ($cesta->cursos()->where('curso_id', $productoId)->exists()) {
-                // Incrementar la cantidad del curso en el carrito
-                $cesta->cursos()->updateExistingPivot($productoId, [
-                    'cantidad' => \DB::raw('cantidad + 1')
-                ]);
+
+                return redirect()->back()->withErrors(['error' => 'Este curso ya está en tu cesta.']);
             } else {
                 // Añadir el curso al carrito con una cantidad de 1
                 $cesta->cursos()->attach($productoId, ['cantidad' => 1]);
@@ -112,10 +116,8 @@ class CestaController extends Controller
         }
 
 
-        \Illuminate\Support\Facades\Session::put('productoSesion', $productosParaSesion);
-        \Illuminate\Support\Facades\Session::put('cursoSesion', $cursosParaSesion); // Guarda los cursos en la sesión
-        Session::put('total', $total);
-        return redirect()->back()->with('success', 'Productos y cursos eliminados del carrito');
+      $this->actualizarSesion($cesta);
+        return redirect()->back();
 
 
     }
@@ -160,7 +162,7 @@ class CestaController extends Controller
 
         // Verificar si el producto existe en la cesta y la cantidad es mayor que 1
         if ($producto && $producto->pivot->cantidad > 1) {
-            if ($producto->stock > 0) {
+
                 // Decrementar la cantidad del producto
                 $producto->pivot->cantidad--;
                 $producto->pivot->save();
@@ -168,10 +170,9 @@ class CestaController extends Controller
                 // Incrementar el stock del producto en 1
                 $producto->stock++;
                 $producto->save();
-            } else {
-                // Manejar caso donde no hay suficiente stock
-                return redirect()->back()->with('error', 'El producto seleccionado no tiene suficiente stock.');
-            }
+
+
+
         }
         $this->actualizarSesion($cesta);
 
@@ -216,10 +217,12 @@ class CestaController extends Controller
             $total += $subtotal;
         }
 
-        // Almacenar los productos y cursos en la sesión
-        Session::put('productosConCantidad', $productosConCantidad);
-        Session::put('cursosConCantidad', $cursosConCantidad);
-        Session::put('total', $total);
+//        // Almacenar los productos y cursos en la sesión
+//        Session::put('productosConCantidad', $productosConCantidad);
+//        Session::put('cursosConCantidad', $cursosConCantidad);
+//        Session::put('total', $total);
+
+        $this->actualizarSesion($cesta);
 
         return view('cesta.cesta', [
             'productosConCantidad' => $productosConCantidad,
@@ -228,45 +231,7 @@ class CestaController extends Controller
         ]);
     }
 
-// Restar cantidad de un curso en la cesta
-    public function restarCurso($cursoId)
-    {
-        $usuario = Auth::user();
-        $cesta = $usuario->cesta;
 
-        // Buscar el curso en la cesta
-        $curso = $cesta->cursos()->where('curso_id', $cursoId)->first();
-
-        if ($curso && $curso->pivot->cantidad > 1) {
-            $cesta->cursos()->updateExistingPivot($cursoId, [
-                'cantidad' => \DB::raw('cantidad - 1')
-            ]);
-        }
-        $this->actualizarSesion($cesta);
-
-        return redirect()->back();
-    }
-
-// Sumar cantidad de un curso en la cesta
-    public function sumarCurso($cursoId)
-    {
-        $usuario = Auth::user();
-        $cesta = $usuario->cesta;
-
-        // Buscar el curso en la cesta
-        $curso = $cesta->cursos()->where('curso_id', $cursoId)->first();
-
-        if ($curso) {
-            $cesta->cursos()->updateExistingPivot($cursoId, [
-                'cantidad' => \DB::raw('cantidad + 1')
-            ]);
-        } else {
-            $cesta->cursos()->attach($cursoId, ['cantidad' => 1]);
-        }
-        $this->actualizarSesion($cesta);
-
-        return redirect()->back();
-    }
 
     public function eliminarProducto($productoId)
     {
@@ -335,6 +300,9 @@ class CestaController extends Controller
 
     public function actualizarSesion($cesta)
     {
+        // Obtener el ID del usuario autenticado
+        $usuarioId = auth()->id(); // Asegúrate de que el usuario esté autenticado
+
         // Obtener los productos y cursos actuales del carrito
         $productosEnCesta = $cesta->productos()->withPivot('cantidad')->get();
         $cursosEnCesta = $cesta->cursos()->withPivot('cantidad')->get();
@@ -370,10 +338,12 @@ class CestaController extends Controller
             $total += $curso->precio * $curso->pivot->cantidad;
         }
 
-        \Illuminate\Support\Facades\Session::put('productoSesion', $productosParaSesion);
-        \Illuminate\Support\Facades\Session::put('cursoSesion', $cursosParaSesion); // Guarda los cursos en la sesión
-        Session::put('total', $total);
+        // Almacenar los datos específicos del usuario en la sesión
+        \Illuminate\Support\Facades\Session::put("productoSesion_{$usuarioId}", $productosParaSesion);
+        \Illuminate\Support\Facades\Session::put("cursoSesion_{$usuarioId}", $cursosParaSesion);
+        \Illuminate\Support\Facades\Session::put("total_{$usuarioId}", $total);
     }
+
 
     public function generarFactura()
     {
@@ -420,6 +390,7 @@ class CestaController extends Controller
         // Asociar los cursos a la factura con las cantidades seleccionadas en la cesta
         foreach ($cursosEnCesta as $curso) {
             $cantidad = $curso->pivot->cantidad; // Obtener la cantidad seleccionada en la cesta
+            $usuario->cursos()->attach($curso->id, ['progreso' => 0]);
             $factura->cursos()->attach($curso->id, ['cantidad' => $cantidad]); // Asociar el curso con la cantidad
         }
 

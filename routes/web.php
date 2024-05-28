@@ -37,6 +37,7 @@ Route::middleware('auth')->group(function () {
 //    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
 
 
+
 //    Route::post('cesta/anadir/{productoId}', [CestaController::class, 'anadirProducto'])->name('cesta.anadir');
 
     Route::get('cesta', [CestaController::class, 'mostrarCesta'])->name('cesta.mostrar');
@@ -65,12 +66,16 @@ Route::middleware('auth')->group(function () {
     Route::get('Productos', [\App\Http\Controllers\ProductoController::class, 'index'])->name('Productos.index');
     Route::get('Cursos', [\App\Http\Controllers\CursosController::class, 'index'])->name('Cursos.index');
 
+    Route::get('/mis-cursos', [\App\Http\Controllers\CursosController::class, 'misCursos'])->name('mis-cursos');
+    Route::delete('/eliminar-curso-usuario/{id}', [\App\Http\Controllers\CursosController::class,'eliminar_curso'])->name('eliminar_curso_usuario');
 
 });
 Route::get('Productos', [\App\Http\Controllers\ProductoController::class, 'index'])->name('Productos.index');
 Route::get('Cursos', [\App\Http\Controllers\CursosController::class, 'index'])->name('Cursos.index');
 
 // routes/web.php
+
+// En routes/web.php
 
 
 

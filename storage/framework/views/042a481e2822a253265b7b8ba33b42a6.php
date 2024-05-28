@@ -1,17 +1,31 @@
 
 <header class="sticky top-0 z-10">
-    <?php $productos  = \Illuminate\Support\Facades\Session::get('productoSesion',[]);
- $cantidad=0;
-    foreach ($productos as $producto) {
-        $cantidad+=$producto['cantidad'];
-    }
-    $cursos = \Illuminate\Support\Facades\Session::get('cursoSesion',[]);
 
-    foreach ($cursos as $curso) {
-        $cantidad+=$curso['cantidad'];
-    }
+
+
+
+    <?php
+        $usuarioId = auth()->id();
+        $productos = Illuminate\Support\Facades\Session::get("productoSesion_{$usuarioId}", []);
+        $cursos = Illuminate\Support\Facades\Session::get("cursoSesion_{$usuarioId}", []);
+        $total = Illuminate\Support\Facades\Session::get("total_{$usuarioId}", 0);
+        $cantidad = Illuminate\Support\Facades\Session::get("cantidad_{$usuarioId}", 0);
+    ?>
+
+    <?php
+
+
+        $cantidad = 0;
+        // Calcula la cantidad total de productos y cursos
+        foreach ($productos as $producto) {
+            $cantidad += $producto['cantidad'];
+        }
+        foreach ($cursos as $curso) {
+            $cantidad += $curso['cantidad'];
+        }
 
     ?>
+
 
     <div class="navbar bg-base-100">
         <div class="flex-1">
@@ -117,7 +131,7 @@
 
                         </div>
                         <div class="flex items-center justify-between px-6 py-3 bg-gray-100">
-                            <h3 class="text-gray-900 font-semibold">Total: <?php echo e(Session::get('total', 0)); ?>€</h3>
+                            <h3 class="text-gray-900 font-semibold">Total:  <?php echo e(is_numeric($total) ? $total : "0"); ?>€</h3>
                             <a class="py-2 px-4 bg-blue-500 hover:bg-blue-600 text-white rounded-lg"  href="<?php echo e(route('cesta.mostrar')); ?>" >
                                 Comprar
                             </a>
@@ -147,6 +161,13 @@
                        Facturas
                     </a>
                 </li>
+                <li>
+                    <a class="justify-between" href="<?php echo e(route('mis-cursos')); ?>"   >
+                        Mis Cursos
+                    </a>
+                </li>
+
+
 <?php endif; ?>
                 <li>
                     <form action="<?php echo e(route("logout")); ?>" method="post">

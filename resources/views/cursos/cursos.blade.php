@@ -11,9 +11,41 @@
 
 <body class=" ">
 <x-header></x-header>
+@if(Session::has('error'))
+    <div id="error-popup" class="popup" style="display:none;">
+        {{ Session::get('error') }}
+    </div>
+@endif
+@if($errors->any())
+    <div id="error-popup" class="popup">
+        @foreach ($errors->all() as $error)
+            {{ $error }}
+        @endforeach
+    </div>
+@endif
 
+@if(Session::has('success'))
+    <div id="success-popup" class="success-popup">
+        {{ Session::get('success') }}
+    </div>
+@endif
+<script>
+
+    setTimeout(function() {
+        document.querySelectorAll('.popup').forEach(function(element) {
+            element.style.display = 'none';
+        });
+    }, 3000);
+
+    setTimeout(function() {
+        document.querySelectorAll('.success-popup').forEach(function(element) {
+            element.style.display = 'none';
+        });
+    }, 3000);
+</script>
 {{--mostrar cursos--}}
 <main class="p-5 min-h-screen">
+
     @role('Admin')
     <div class="mt-4 flex flex-row-reverse ">
         <a href="{{ route('Cursos.create') }}" class="btn btn-success">Agregar Curso</a>

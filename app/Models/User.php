@@ -11,8 +11,10 @@ use Spatie\Permission\Traits\HasRoles;
 
 class User extends Authenticatable
 {
-
-
+    public function cursos()
+    {
+        return $this->belongsToMany(Cursos::class, 'cursos_user', 'user_id', 'curso_id')->withPivot('progreso')->withTimestamps();
+    }
     public function facturas()
     {
         return $this->hasMany(Factura::class);

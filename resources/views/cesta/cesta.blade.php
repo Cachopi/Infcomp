@@ -3,17 +3,6 @@
 @section('content')
 
 
-    @if(Session::has('error'))
-        <div id="error-popup" class="popup" style="display:none;">
-            {{ Session::get('error') }}
-        </div>
-    @endif
-
-    @if(Session::has('success'))
-        <div id="success-popup" class="success-popup">
-            {{ Session::get('success') }}
-        </div>
-    @endif
 
 
     <script>
@@ -91,15 +80,9 @@
                                 <td class="py-4">{{$curso['curso']->precio}}</td>
                                 <td class="py-4">
                                     <div class="flex items-center">
-                                        <form action="{{ route('cesta.restarCurso', $curso['curso']->id) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="border rounded-md py-2 px-4 mr-2">-</button>
-                                        </form>
+                                       
                                         <span class="text-center w-8">{{ $curso['cantidad'] }}</span>
-                                        <form action="{{ route('cesta.sumarCurso', $curso['curso']->id) }}" method="POST">
-                                            @csrf
-                                            <button type="submit" class="border rounded-md py-2 px-4 ml-2">+</button>
-                                        </form>
+
                                     </div>
                                 </td>
                                 <td class="py-4">{{$curso['subtotal'] }}€ </td>

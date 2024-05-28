@@ -24,7 +24,42 @@
 </head>
 <body>
 <x-header></x-header>
+@if(Session::has('error'))
+    <div id="error-popup" class="popup" style="display:none;">
+        {{ Session::get('error') }}
+    </div>
+@endif
+@if($errors->any())
+    <div id="error-popup" class="popup">
+        @foreach ($errors->all() as $error)
+            {{ $error }}
+        @endforeach
+    </div>
+@endif
+
+@if(Session::has('success'))
+    <div id="success-popup" class="success-popup">
+        {{ Session::get('success') }}
+    </div>
+@endif
+
+<script>
+
+    setTimeout(function() {
+        document.querySelectorAll('.popup').forEach(function(element) {
+            element.style.display = 'none';
+        });
+    }, 3000);
+
+    setTimeout(function() {
+        document.querySelectorAll('.success-popup').forEach(function(element) {
+            element.style.display = 'none';
+        });
+    }, 3000);
+</script>
 <main class="flex flex-col justify-center items-center flex-1 m-10">
+
+
     <div class="container">
         @yield('content')
     </div>
@@ -44,6 +79,7 @@
     @yield('show_factura')
     @yield('facturas_perfil')
     @yield('paypal')
+    @yield('usuario_cursos')
 </main>
 <x-footer></x-footer>
 </body>
