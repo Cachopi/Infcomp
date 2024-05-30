@@ -19,108 +19,82 @@ class CestaController extends Controller
 {
 
     public function anadirProducto(Request $request, $productoId, $tipo)
-    {
-        $usuario = Auth::user();
+{
+    $usuario = Auth::user();
 
-        // Verificar si el usuario tiene una cesta
-        if (!$usuario->cesta) {
-            $cesta = new Cesta();
-            $usuario->cesta()->save($cesta);
-        }
+    // Verificar si el usuario tiene una cesta
+    if (!$usuario->cesta) {
+        // Crear una nueva cesta y asociarla al usuario
+        $cesta = new Cesta();
+        $cesta->user_id = $usuario->id;
+        $cesta->save();
 
-        $cesta = $usuario->cesta;
-
-        // Verificar si el tipo es un producto
-        if ($tipo === 'producto') {
-            // Buscar el producto por su ID
-            $producto = Producto::find($productoId);
-
-            // Verificar si el producto existe
-            if (!$producto) {
-                return redirect()->back()->with('error', 'Producto no encontrado');
-            }
-
-            // Validar si hay suficiente stock disponible para agregar el producto a la cesta
-            if ($producto->stock <= 0) {
-                return redirect()->back()->with('error', 'El producto seleccionado no tiene stock disponible.');
-            }
-
-            // Obtener la cantidad que el usuario desea agregar a la cesta
-            $cantidadDeseada = 1; // Puedes cambiar esto según tu lógica
-
-            // Verificar si la cantidad deseada excede el stock disponible
-            if ($cantidadDeseada > $producto->stock) {
-                return redirect()->back()->with('error', 'La cantidad deseada excede el stock disponible.');
-            }
-
-            // Verificar si el producto ya está en la cesta
-            if ($cesta->productos()->where('producto_id', $productoId)->exists()) {
-                // Incrementar la cantidad del producto en la cesta
-                $cesta->productos()->updateExistingPivot($productoId, [
-                    'cantidad' => \DB::raw('cantidad + ' . $cantidadDeseada)
-                ]);
-            } else {
-                // Añadir el producto a la cesta con la cantidad deseada
-                $cesta->productos()->attach($productoId, ['cantidad' => $cantidadDeseada]);
-            }
-
-            // Reducir el stock del producto
-            $producto->stock -= $cantidadDeseada;
-            $producto->save();
-        } elseif ($tipo === 'curso') {
-
-            if ($usuario->cursos->contains($productoId)) {
-                return redirect()->back()->withErrors(['error' => 'Ya has comprado este curso anteriormente.']);
-            }
-            // Verificar si el curso ya está en el carrito
-            if ($cesta->cursos()->where('curso_id', $productoId)->exists()) {
-
-                return redirect()->back()->withErrors(['error' => 'Este curso ya está en tu cesta.']);
-            } else {
-                // Añadir el curso al carrito con una cantidad de 1
-                $cesta->cursos()->attach($productoId, ['cantidad' => 1]);
-            }
-        }
-
-        // Obtener los productos actuales del carrito
-        $productosEnCesta = $cesta->productos()->get();
-        $cursosEnCesta = $cesta->cursos()->get();
-
-        // Preparar los datos para guardar en la sesión
-        $productosParaSesion = [];
-        $cursosParaSesion = [];
-        $total = 0;
-        foreach ($productosEnCesta as $producto) {
-            $productosParaSesion[] = [
-                'id' => $producto->id,
-                'nombre' => $producto->nombre,
-                'precio' => $producto->precio,
-                'ruta' => $producto->ruta,
-                'cantidad' => $producto->pivot->cantidad,
-                'subtotal' => $producto->precio * $producto->pivot->cantidad
-            ];
-            $total += $producto->precio * $producto->pivot->cantidad;
-        }
-
-
-        foreach ($cursosEnCesta as $curso) {
-            $cursosParaSesion[] = [
-                'id' => $curso->id,
-                'nombre' => $curso->nombre,
-                'precio' => $curso->precio,
-                'ruta' => $curso->ruta,
-                'cantidad' => $curso->pivot->cantidad, // Asume que también tienes una columna cantidad en la tabla pivot de cestas y cursos
-                'subtotal' => $curso->precio * $curso->pivot->cantidad
-            ];
-            $total += $curso->precio * $curso->pivot->cantidad;
-        }
-
-
-      $this->actualizarSesion($cesta);
-        return redirect()->back();
-
-
+        // Recargar el usuario para incluir la cesta recién creada
+        $usuario->load('cesta');
     }
+
+    // Obtener la cesta del usuario
+    $cesta = $usuario->cesta;
+
+    // Verificar si la cesta se ha creado correctamente
+    if (!$cesta) {
+        return redirect()->back()->with('error', 'No se pudo crear la cesta.');
+    }
+
+    // Verificar si el tipo es un producto
+    if ($tipo === 'producto') {
+        // Buscar el producto por su ID
+        $producto = Producto::find($productoId);
+
+        // Verificar si el producto existe
+        if (!$producto) {
+            return redirect()->back()->with('error', 'Producto no encontrado');
+        }
+
+        // Validar si hay suficiente stock disponible para agregar el producto a la cesta
+        if ($producto->stock <= 0) {
+            return redirect()->back()->with('error', 'El producto seleccionado no tiene stock disponible.');
+        }
+
+        // Obtener la cantidad que el usuario desea agregar a la cesta
+        $cantidadDeseada = 1; // Puedes cambiar esto según tu lógica
+
+        // Verificar si la cantidad deseada excede el stock disponible
+        if ($cantidadDeseada > $producto->stock) {
+            return redirect()->back()->with('error', 'La cantidad deseada excede el stock disponible.');
+        }
+
+        // Verificar si el producto ya está en la cesta
+        $productoEnCesta = $cesta->productos()->where('producto_id', $productoId)->first();
+        if ($productoEnCesta) {
+            // Incrementar la cantidad del producto en la cesta
+            $cesta->productos()->updateExistingPivot($productoId, [
+                'cantidad' => \DB::raw('cantidad + ' . $cantidadDeseada)
+            ]);
+        } else {
+            // Añadir el producto a la cesta con la cantidad deseada
+            $cesta->productos()->attach($productoId, ['cantidad' => $cantidadDeseada]);
+        }
+
+        // Reducir el stock del producto
+        $producto->stock -= $cantidadDeseada;
+        $producto->save();
+    } elseif ($tipo === 'curso') {
+        if ($usuario->cursos->contains($productoId)) {
+            return redirect()->back()->withErrors(['error' => 'Ya has comprado este curso anteriormente.']);
+        }
+        // Verificar si el curso ya está en el carrito
+        if ($cesta->cursos()->where('curso_id', $productoId)->exists()) {
+            return redirect()->back()->withErrors(['error' => 'Este curso ya está en tu cesta.']);
+        } else {
+            // Añadir el curso al carrito con una cantidad de 1
+            $cesta->cursos()->attach($productoId, ['cantidad' => 1]);
+        }
+    }
+
+    $this->actualizarSesion($cesta);
+    return redirect()->back();
+}
 
     /**
      * Display a listing of the resource.

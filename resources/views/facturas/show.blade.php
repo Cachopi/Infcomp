@@ -2,7 +2,8 @@
 @section('show_factura')
 
     <div class="container mx-auto">
-        <h1 class="text-2xl font-bold mb-4">Detalles de la factura {{ $factura->id }}</h1>
+      @role('Admin')  <h1 class="text-2xl font-bold mb-4">Detalles de la factura {{ $factura->id }}</h1>@endrole
+        @role('Usuario')  <h1 class="text-2xl font-bold mb-4">Detalles de la factura </h1>@endrole
 
 
         <div class="overflow-x-auto">
