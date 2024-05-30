@@ -28,20 +28,15 @@
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">{{ $factura->created_at }}</td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <a href="{{ route('Facturas.show', ['Factura' => $factura->id]) }}" class="btn btn-primary hover:bg-blue-500">Ver Detalles</a>
-
-
-                            <a class="btn btn-primary bg-red-700 border-red-700  hover:bg-red-500" href="{{ route('Facturas.destroy', ['Factura' => $factura->id]) }}" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $factura->id }}').submit();">
-                                Eliminar
-                            </a>
-
-                            <form id="delete-form-{{ $factura->id }}" action="{{ route('Facturas.destroy', ['Factura' => $factura->id]) }}" method="POST" style="display: none;">
-                                @csrf
-                                @method('DELETE')
-                            </form>
+                                <div class="flex justify-center items-center space-x-2">
+                                    <a href="{{ route('Facturas.show', ['Factura' => $factura->id]) }}" class="btn btn-primary hover:bg-blue-500">Ver Detalles</a>
+                                    <a class="btn btn-primary bg-red-700 border-red-700 hover:bg-red-500" href="{{ route('Facturas.destroy', ['Factura' => $factura->id]) }}" onclick="event.preventDefault(); document.getElementById('delete-form-{{ $factura->id }}').submit();">Eliminar</a>
+                                    <form id="delete-form-{{ $factura->id }}" action="{{ route('Facturas.destroy', ['Factura' => $factura->id]) }}" method="POST" style="display: none;">
+                                        @csrf
+                                        @method('DELETE')
+                                    </form>
+                                </div>
                             </td>
-
-
                         </tr>
                     @endforeach
                     </tbody>
@@ -49,6 +44,4 @@
             </div>
         </div>
     </div>
-
-
 @endsection

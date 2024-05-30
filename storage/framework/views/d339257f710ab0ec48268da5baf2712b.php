@@ -5,9 +5,8 @@
     <meta name="viewport"
           content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <link rel="icon" type="image/png" href="<?php echo e(asset('images/logo.png')); ?>">
     <script src="<?php echo e(asset('js/jquery.min.js')); ?>"></script>
-
-
     <?php echo app('Illuminate\Foundation\Vite')(['resources/css/app.css','resources/js/app.js']); ?>
     <title>Infcomp</title>
     <style>
@@ -42,14 +41,16 @@
 <?php $component = $__componentOriginalfd1f218809a441e923395fcbf03e4272; ?>
 <?php unset($__componentOriginalfd1f218809a441e923395fcbf03e4272); ?>
 <?php endif; ?>
+
 <?php if(Session::has('error')): ?>
-    <div id="error-popup" class="popup" style="display:none;">
+    <div id="error-popup" class="popup hidden fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50">
         <?php echo e(Session::get('error')); ?>
 
     </div>
 <?php endif; ?>
+
 <?php if($errors->any()): ?>
-    <div id="error-popup" class="popup">
+    <div id="error-popup" class="popup fixed top-4 left-1/2 transform -translate-x-1/2 bg-red-500 text-white p-4 rounded-lg shadow-lg z-50">
         <?php $__currentLoopData = $errors->all(); $__env->addLoop($__currentLoopData); foreach($__currentLoopData as $error): $__env->incrementLoopIndices(); $loop = $__env->getLastLoop(); ?>
             <?php echo e($error); ?>
 
@@ -58,30 +59,28 @@
 <?php endif; ?>
 
 <?php if(Session::has('success')): ?>
-    <div id="success-popup" class="success-popup">
+    <div id="success-popup" class="success-popup fixed top-4 left-1/2 transform -translate-x-1/2 bg-green-500 text-white p-4 rounded-lg shadow-lg z-50">
         <?php echo e(Session::get('success')); ?>
 
     </div>
 <?php endif; ?>
 
 <script>
-
     setTimeout(function() {
         document.querySelectorAll('.popup').forEach(function(element) {
-            element.style.display = 'none';
+            element.classList.add('hidden');
         });
     }, 3000);
 
     setTimeout(function() {
         document.querySelectorAll('.success-popup').forEach(function(element) {
-            element.style.display = 'none';
+            element.classList.add('hidden');
         });
     }, 3000);
 </script>
-<main class="flex flex-col justify-center items-center flex-1 m-10">
 
-
-    <div class="container">
+<main class="flex flex-col justify-center items-center flex-1 m-4 md:m-10">
+    <div class="container mx-auto p-4">
         <?php echo $__env->yieldContent('content'); ?>
     </div>
 
@@ -102,6 +101,7 @@
     <?php echo $__env->yieldContent('paypal'); ?>
     <?php echo $__env->yieldContent('usuario_cursos'); ?>
 </main>
+
 <?php if (isset($component)) { $__componentOriginal8a8716efb3c62a45938aca52e78e0322 = $component; } ?>
 <?php if (isset($attributes)) { $__attributesOriginal8a8716efb3c62a45938aca52e78e0322 = $attributes; } ?>
 <?php $component = Illuminate\View\AnonymousComponent::resolve(['view' => 'components.footer','data' => []] + (isset($attributes) && $attributes instanceof Illuminate\View\ComponentAttributeBag ? (array) $attributes->getIterator() : [])); ?>
@@ -121,6 +121,7 @@
 <?php $component = $__componentOriginal8a8716efb3c62a45938aca52e78e0322; ?>
 <?php unset($__componentOriginal8a8716efb3c62a45938aca52e78e0322); ?>
 <?php endif; ?>
+
 </body>
 </html>
 <?php /**PATH D:\DAW\Proyecto 2ºDAW\Infcomp\resources\views/inicio/inicio.blade.php ENDPATH**/ ?>

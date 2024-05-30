@@ -28,20 +28,15 @@
                             </td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm"><?php echo e($factura->created_at); ?></td>
                             <td class="px-5 py-5 border-b border-gray-200 bg-white text-sm">
-                                <a href="<?php echo e(route('Facturas.show', ['Factura' => $factura->id])); ?>" class="btn btn-primary hover:bg-blue-500">Ver Detalles</a>
-
-
-                            <a class="btn btn-primary bg-red-700 border-red-700  hover:bg-red-500" href="<?php echo e(route('Facturas.destroy', ['Factura' => $factura->id])); ?>" onclick="event.preventDefault(); document.getElementById('delete-form-<?php echo e($factura->id); ?>').submit();">
-                                Eliminar
-                            </a>
-
-                            <form id="delete-form-<?php echo e($factura->id); ?>" action="<?php echo e(route('Facturas.destroy', ['Factura' => $factura->id])); ?>" method="POST" style="display: none;">
-                                <?php echo csrf_field(); ?>
-                                <?php echo method_field('DELETE'); ?>
-                            </form>
+                                <div class="flex justify-center items-center space-x-2">
+                                    <a href="<?php echo e(route('Facturas.show', ['Factura' => $factura->id])); ?>" class="btn btn-primary hover:bg-blue-500">Ver Detalles</a>
+                                    <a class="btn btn-primary bg-red-700 border-red-700 hover:bg-red-500" href="<?php echo e(route('Facturas.destroy', ['Factura' => $factura->id])); ?>" onclick="event.preventDefault(); document.getElementById('delete-form-<?php echo e($factura->id); ?>').submit();">Eliminar</a>
+                                    <form id="delete-form-<?php echo e($factura->id); ?>" action="<?php echo e(route('Facturas.destroy', ['Factura' => $factura->id])); ?>" method="POST" style="display: none;">
+                                        <?php echo csrf_field(); ?>
+                                        <?php echo method_field('DELETE'); ?>
+                                    </form>
+                                </div>
                             </td>
-
-
                         </tr>
                     <?php endforeach; $__env->popLoop(); $loop = $__env->getLastLoop(); ?>
                     </tbody>
@@ -49,8 +44,6 @@
             </div>
         </div>
     </div>
-
-
 <?php $__env->stopSection(); ?>
 
 <?php echo $__env->make('inicio.inicio', \Illuminate\Support\Arr::except(get_defined_vars(), ['__data', '__path']))->render(); ?><?php /**PATH D:\DAW\Proyecto 2ºDAW\Infcomp\resources\views/facturas/facturas.blade.php ENDPATH**/ ?>
