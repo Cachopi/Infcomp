@@ -13,7 +13,7 @@ class AdminUserController extends Controller
     public function index()
     {
         $users = User::all();
-        $roles = Role::all(); // Obtener todos los roles
+        $roles = Role::all();
 
         return view('usuarios.usuarios', compact('users','roles'));
     }
@@ -68,7 +68,7 @@ class AdminUserController extends Controller
             'email' => $request->email,
         ]);
 
-        $user->roles()->sync([$request->role_id]); // Cambiar roles
+        $user->roles()->sync([$request->role_id]);
 
         return redirect()->route('Usuarios.index')->with('success', 'Usuario actualizado correctamente.');
     }

@@ -35,7 +35,7 @@ class CursosController extends Controller
     {
         $request->validate([
             'nombre' => 'required',
-            'imagen' => 'required|image|max:2048', // máximo 2MB
+            'imagen' => 'required|image|max:2048',
         ]);
 
 
@@ -97,46 +97,46 @@ class CursosController extends Controller
     public function update(UpdateCursosRequest $request, $id)
     {
 
-        // Validar los datos de entrada
+
         $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'precio' => 'required|numeric|min:0',
-            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048', // Validación para la imagen
+            'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
             'horas' => 'nullable|numeric'
         ]);
 
-        // Buscar el Curso por ID
+
         $curso = Cursos::find($id);
 
-        // Verificar si el Curso existe
+
         if (!$curso) {
             return redirect()->route('Cursos.index')->with('error', 'Curso no encontrado');
         }
 
-        // Actualizar los campos del Curso con los datos del formulario
+
         $curso->nombre = $request->input('nombre');
         $curso->descripcion = $request->input('descripcion');
         $curso->precio = $request->input('precio');
         $curso->horas = $request->input('horas');
 
-        // Procesar la carga de la imagen
+
         if ($request->hasFile('imagen')) {
-            // Eliminar la imagen anterior si existe
+
             if ($curso->imagen) {
                 Storage::delete($curso->imagen);
             }
 
-            // Almacenar la nueva imagen
+
             $imagen = $request->file('imagen');
             $ruta = $imagen->store('Cursos', 'public');
             $curso->ruta = $ruta;
         }
 
-        // Guardar los cambios en la base de datos
+
         $curso->save();
 
-        // Redirigir a la lista de Cursos con un mensaje de éxito
+
         return redirect()->route('Cursos.index')->with('success', 'curso actualizado exitosamente');
     }
 
@@ -160,15 +160,15 @@ class CursosController extends Controller
     }
     public function eliminar_curso($id)
     {
-        $usuario = Auth::user(); // Obtener el usuario autenticado
+        $usuario = Auth::user();
 
-        // Encuentra el curso por su ID
+
         $curso = Cursos::findOrFail($id);
 
-        // Elimina la relación entre el usuario y el curso
+
         $usuario->cursos()->detach($curso->id);
 
-        // Redirige de vuelta con un mensaje de éxito
+
         return redirect()->back()->with('success', 'Curso eliminado exitosamente.');
     }
 

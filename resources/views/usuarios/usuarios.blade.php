@@ -10,7 +10,7 @@
                 <div class="mb-3">
                     <a href="{{ route('Usuarios.create') }}" class="btn btn-success">Crear Usuario</a>
                 </div>
-                <div class="overflow-x-auto"> <!-- Permitir desplazamiento horizontal en pantallas pequeñas -->
+                <div class="overflow-x-auto">
                     <table class="table glass">
                         <thead>
                         <tr>
@@ -29,11 +29,11 @@
                                 <td>{{ $user->email }}</td>
                                 <td>
                                     @foreach ($user->roles as $role)
-                                        {{ $role->name }} <br> <!-- Mostrar el nombre de cada rol del usuario en una nueva línea -->
+                                        {{ $role->name }} <br>
                                     @endforeach
                                 </td>
                                 <td>
-                                    <!-- Enlaces para editar y eliminar usuarios -->
+
                                     <a href="{{ route('Usuarios.show', $user->id) }}" class="btn btn-primary hover:bg-blue-500">Editar</a>
                                     <form action="{{ route('Usuarios.destroy', $user->id) }}" method="POST" style="display: inline;">
                                         @csrf

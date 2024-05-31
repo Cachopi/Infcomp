@@ -1,5 +1,5 @@
 
-<!-- resources/views/usuarios/create.blade.php -->
+
 @extends('inicio.inicio')
 
 @section('crear_usuario')

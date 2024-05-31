@@ -12,7 +12,7 @@ class FacturaController extends Controller
 
     public function index()
     {
-        $facturas = Factura::with('usuario')->get(); // Obtener todas las facturas con la información del usuario
+        $facturas = Factura::with('usuario')->get();
 
         return view('facturas.facturas', ['facturas' => $facturas]);
     }
@@ -20,7 +20,7 @@ class FacturaController extends Controller
 
     public function show($id)
     {
-        $factura = Factura::with('productos')->findOrFail($id); // Obtener la factura con sus productos asociados
+        $factura = Factura::with('productos')->findOrFail($id);
 
         return view('facturas.show', ['factura' => $factura]);
     }
@@ -34,7 +34,7 @@ class FacturaController extends Controller
             return redirect()->back()->with('error', 'La factura no se encontró');
         }
 
-        // Eliminar la factura
+
         $factura->delete();
 
         return redirect()->back()->with('success', 'Factura eliminada correctamente');

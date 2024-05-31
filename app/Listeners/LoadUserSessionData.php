@@ -14,7 +14,7 @@ class LoadUserSessionData
     {
         $usuario = $event->user;
 
-        // Obtener la cesta del usuario desde la base de datos
+
         $cesta = $usuario->cesta;
 
         if ($cesta) {
@@ -24,7 +24,7 @@ class LoadUserSessionData
             $productosConCantidad = [];
             $cursosConCantidad = [];
 
-            // Procesar productos
+
             foreach ($productos as $producto) {
                 $cantidad = $producto->pivot->cantidad;
                 $subtotal = $producto->precio * $cantidad;
@@ -41,7 +41,7 @@ class LoadUserSessionData
                 $total += $subtotal;
             }
 
-            // Procesar cursos
+
             foreach ($cursos as $curso) {
                 $cantidad = $curso->pivot->cantidad;
                 $subtotal = $curso->precio * $cantidad;
@@ -58,7 +58,7 @@ class LoadUserSessionData
                 $total += $subtotal;
             }
 
-            // Almacenar los productos y cursos en la sesión del usuario
+
             Session::put("productoSesion_{$usuario->id}", $productosConCantidad);
             Session::put("cursoSesion_{$usuario->id}", $cursosConCantidad);
             Session::put("total_{$usuario->id}", $total);

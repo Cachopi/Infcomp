@@ -80,7 +80,7 @@
                                 <td class="py-4">{{$curso['curso']->precio}}</td>
                                 <td class="py-4">
                                     <div class="flex items-center">
-                                       
+
                                         <span class="text-center w-8">{{ $curso['cantidad'] }}</span>
 
                                     </div>
@@ -88,7 +88,7 @@
                                 <td class="py-4">{{$curso['subtotal'] }}€ </td>
                             </tr>
                         @endforeach
-                        <!-- More product rows -->
+
                         </tbody>
                     </table>
                 </div>

@@ -101,46 +101,46 @@ class ProductoController extends Controller
     {
         //
 
-        // Validar los datos de entrada
+
         $request->validate([
             'nombre' => 'required|string|max:255',
             'descripcion' => 'nullable|string',
             'precio' => 'required|numeric|min:0',
             'imagen' => 'nullable|image|mimes:jpeg,png,jpg,gif|max:2048',
-            'stock' => 'required|integer|min:0'// Validación para la imagen
+            'stock' => 'required|integer|min:0'
         ]);
 
-        // Buscar el producto por ID
+
         $producto = Producto::find($id);
 
-        // Verificar si el producto existe
+
         if (!$producto) {
             return redirect()->route('productos.index')->with('error', 'Producto no encontrado');
         }
 
-        // Actualizar los campos del producto con los datos del formulario
+
         $producto->nombre = $request->input('nombre');
         $producto->descripcion = $request->input('descripcion');
         $producto->precio = $request->input('precio');
         $producto->stock = $request->stock;
 
-        // Procesar la carga de la imagen
+
         if ($request->hasFile('imagen')) {
-            // Eliminar la imagen anterior si existe
+
             if ($producto->imagen) {
                 Storage::delete($producto->imagen);
             }
 
-            // Almacenar la nueva imagen
+
             $imagen = $request->file('imagen');
             $ruta = $imagen->store('productos', 'public');
             $producto->ruta = $ruta;
         }
 
-        // Guardar los cambios en la base de datos
+
         $producto->save();
 
-        // Redirigir a la lista de productos con un mensaje de éxito
+
         return redirect()->route('Productos.index')->with('success', 'Producto actualizado exitosamente');
     }
 

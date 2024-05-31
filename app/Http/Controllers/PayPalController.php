@@ -39,7 +39,7 @@ class PayPalController extends Controller
         $productos = $cesta->productos;
         $cursos = $cesta->cursos;
 
-        // Verificar si hay productos en la cesta
+
         if ($productos->isEmpty() && $cursos->isEmpty()) {
             Session::flash('error', 'No hay productos en la cesta.');
 
@@ -48,12 +48,12 @@ class PayPalController extends Controller
 
         $sum = 0;
 
-        // Sumar el precio de los productos en la cesta
+
         foreach ($productos as $producto) {
             $sum += $producto->precio * $producto->pivot->cantidad;
         }
 
-        // Sumar el precio de los cursos en la cesta
+
         foreach ($cursos as $curso) {
             $sum += $curso->precio * $curso->pivot->cantidad;
         }
@@ -107,13 +107,13 @@ class PayPalController extends Controller
             $cestaController = new CestaController();
             $cestaController->generarFactura();
 
-            // Aquí actualizamos la cesta del usuario para reflejar que los productos han sido comprados
+
             $usuario = Auth::user();
             $cesta = $usuario->cesta;
 
-            // Eliminar los productos de la cesta
+
             $cesta->productos()->detach();
-            // Eliminar los cursos de la cesta
+
             $cesta->cursos()->detach();
 
 
