@@ -1,66 +1,121 @@
-<p align="center"><a href="https://laravel.com" target="_blank"><img src="https://raw.githubusercontent.com/laravel/art/master/logo-lockup/5%20SVG/2%20CMYK/1%20Full%20Color/laravel-logolockup-cmyk-red.svg" width="400" alt="Laravel Logo"></a></p>
+# INFCOMP
 
-<p align="center">
-<a href="https://github.com/laravel/framework/actions"><img src="https://github.com/laravel/framework/workflows/tests/badge.svg" alt="Build Status"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/dt/laravel/framework" alt="Total Downloads"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/v/laravel/framework" alt="Latest Stable Version"></a>
-<a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
-</p>
+INFCOMP es un proyecto de Ecommerce desarrollado con LARAVEL, enfocado en la venta de productos y cursos, con un panel de administración completo para una gestión eficiente.
 
-## About Laravel
+## Características
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+- **Dirigido a:** Usuarios, visitantes y administradores.
+- **Registro de usuarios:** Fácil y rápido.
+- **Sistema de roles:** Interacciones personalizadas según el rol (usuario, visitante, administrador).
+- **Pasarela de pago:** Integración con PAYPAL.
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+## Tecnologías Utilizadas
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- **Framework:** LARAVEL
+- **Estilos:** Tailwind y DaisyUI
+- **Base de datos:** MYSQL
+- **Contenerización:** Docker
 
-## Learning Laravel
+## Instalación y Ejecución
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Sigue estos pasos para descargar y ejecutar el proyecto:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+1. **Clona el repositorio:**
+    ```bash
+    git clone https://github.com/Cachopi/Infcomp.git
+    cd Infcomp
+    ```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+2. **Instala las dependencias de PHP con Composer:**
+    ```bash
+    composer install
+    ```
 
-## Laravel Sponsors
+3. **Instala las dependencias de JavaScript con npm:**
+    ```bash
+    npm install
+    ```
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
+4. **Configura el archivo `.env`:**
+    - Copia el archivo `.env.example` y renómbralo a `.env`.
+    - Configura las variables de entorno según tus necesidades (base de datos, mail, etc.).
 
-### Premium Partners
+5. **Genera la clave de la aplicación:**
+    ```bash
+    php artisan key:generate
+    ```
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+6. **Ejecuta las migraciones y seedea la base de datos:**
+    ```bash
+    php artisan migrate --seed
+    ```
 
-## Contributing
+7. **Compila los assets:**
+    ```bash
+    npm run dev
+    ```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+8. **Inicia el servidor local:**
+    ```bash
+    php artisan serve
+    ```
 
-## Code of Conduct
+## Manual de Usuario
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+### Página Principal
+La página principal ofrece tres opciones: explorar productos y cursos, iniciar sesión si ya tienes cuenta, o registrarte para poder realizar compras.
 
-## Security Vulnerabilities
+![Página Principal](https://github.com/Cachopi/Infcomp/assets/135831739/cc0b16b1-627a-4d4b-88e1-556a884c5506)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+### Registro de Usuarios
+Proceso sencillo para crear una nueva cuenta.
 
-## License
+![Registro de Usuarios](image.png)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+### Productos
+Buscador dinámico para encontrar fácilmente lo que buscas.
+
+![Buscador de Productos](image-1.png)
+
+### Cesta de Compras
+Visualiza y gestiona tus productos seleccionados.
+
+![Cesta de Compras](image-2.png)
+
+### Facturas
+Revisa tus compras y descarga tus facturas.
+
+![Facturas](image-3.png)
+![Detalle de Factura](image-4.png)
+
+### Mis Cursos
+Accede a los cursos que has comprado.
+
+![Mis Cursos](image-5.png)
+
+## Administrador
+
+### Gestión de Productos
+Administra los productos disponibles en la tienda.
+
+![Gestión de Productos](image-6.png)
+
+### Modificar Productos y Cursos
+Edita los detalles de productos y cursos.
+
+![Modificar Productos y Cursos](image-7.png)
+
+### Crear Productos y Cursos
+Añade nuevos productos y cursos al catálogo.
+
+![Crear Productos y Cursos](image-8.png)
+
+### Gestión de Usuarios
+Administra y controla los usuarios registrados en la plataforma.
+
+![Gestión de Usuarios](image-9.png)
+
+### Administrar Usuarios
+Modifica y gestiona roles y permisos de los usuarios.
+
+![Administrar Usuarios](image-10.png)
