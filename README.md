@@ -70,52 +70,63 @@ La página principal ofrece tres opciones: explorar productos y cursos, iniciar 
 ### Registro de Usuarios
 Proceso sencillo para crear una nueva cuenta.
 
-![Registro de Usuarios](image.png)
+![Registro de Usuarios](![image](https://github.com/Cachopi/Infcomp/assets/135831739/4a4f8524-6c3e-455b-b278-12a392fd8492)
+)
 
 ### Productos
 Buscador dinámico para encontrar fácilmente lo que buscas.
 
-![Buscador de Productos](image-1.png)
+![image-1](https://github.com/Cachopi/Infcomp/assets/135831739/eeb281ef-2356-4287-ae80-2352d65f365c)
+
 
 ### Cesta de Compras
 Visualiza y gestiona tus productos seleccionados.
 
-![Cesta de Compras](image-2.png)
+![image-2](https://github.com/Cachopi/Infcomp/assets/135831739/0e33c359-050b-4f0d-9b60-b2ab4e11e5b7)
+
 
 ### Facturas
 Revisa tus compras y descarga tus facturas.
 
-![Facturas](image-3.png)
-![Detalle de Factura](image-4.png)
+![image-3](https://github.com/Cachopi/Infcomp/assets/135831739/46548e92-0914-4f5f-9d96-fa2b36480e64)
+
+![image-4](https://github.com/Cachopi/Infcomp/assets/135831739/ceff9027-c359-40b4-8a05-d7536051e2a3)
+
 
 ### Mis Cursos
 Accede a los cursos que has comprado.
 
-![Mis Cursos](image-5.png)
+![image-5](https://github.com/Cachopi/Infcomp/assets/135831739/88ac6696-6474-445f-a236-e959c596eadf)
+
 
 ## Administrador
 
 ### Gestión de Productos
 Administra los productos disponibles en la tienda.
 
-![Gestión de Productos](image-6.png)
+![image-6](https://github.com/Cachopi/Infcomp/assets/135831739/ab7aca77-8450-440e-aa4f-5cfed42e24d6)
+
 
 ### Modificar Productos y Cursos
 Edita los detalles de productos y cursos.
 
-![Modificar Productos y Cursos](image-7.png)
+![image-7](https://github.com/Cachopi/Infcomp/assets/135831739/9458fbd6-28b0-452b-b1a6-9ba1d67f6578)
+
 
 ### Crear Productos y Cursos
 Añade nuevos productos y cursos al catálogo.
 
-![Crear Productos y Cursos](image-8.png)
+![image-8](https://github.com/Cachopi/Infcomp/assets/135831739/50bb6a7e-9fe0-4b44-8aac-bfd5f8feea13)
+
 
 ### Gestión de Usuarios
 Administra y controla los usuarios registrados en la plataforma.
 
-![Gestión de Usuarios](image-9.png)
+![image-9](https://github.com/Cachopi/Infcomp/assets/135831739/cf2498d3-e49d-4d38-882c-da0058e55532)
+
 
 ### Administrar Usuarios
 Modifica y gestiona roles y permisos de los usuarios.
 
-![Administrar Usuarios](image-10.png)
+![image-10](https://github.com/Cachopi/Infcomp/assets/135831739/0ac6c0d4-16f4-4184-9b8b-10606bc98ae5)
+
