@@ -70,8 +70,8 @@ La página principal ofrece tres opciones: explorar productos y cursos, iniciar 
 ### Registro de Usuarios
 Proceso sencillo para crear una nueva cuenta.
 
-![Registro de Usuarios](![image](https://github.com/Cachopi/Infcomp/assets/135831739/4a4f8524-6c3e-455b-b278-12a392fd8492)
-)
+![image](https://github.com/Cachopi/Infcomp/assets/135831739/c73590a2-c786-46d6-94c5-8d88c5b69538)
+
 
 ### Productos
 Buscador dinámico para encontrar fácilmente lo que buscas.
